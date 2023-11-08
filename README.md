@@ -1,3 +1,8 @@
+
+A project based on openwsn
+see ts4231 firmware at ./bsp/chips/ts4231 
+
+
 OpenWSN firmware: stuff that runs on a mote
 
 Part of UC Berkeley's OpenWSN project, http://www.openwsn.org/.

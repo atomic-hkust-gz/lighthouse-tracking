@@ -15,10 +15,10 @@ settings
 *.jlink
 /build
 /images
-/projects/common/*
-/projects/nrf52840_dk_TS4231/Output/*
-/bsp/hal/*
-/bootloader/*
+projects/common/*
+projects/nrf52840_dk_TS4231/Output/*
+bsp/hal/*
+bootloader/*
 
 /.sconsign.dblite
 *.map
@@ -32,7 +32,7 @@ settings
 /projects/telosb/03oos_macpong/path.txt
 /projects/telosb/02drv_opentimers/path.txt
 # ignore all subflies
-/chips/*/
+chips/*/
 
 # 保留特定的文件夹
 !/chips/ts4231/
