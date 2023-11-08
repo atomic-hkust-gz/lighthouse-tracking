@@ -16,7 +16,8 @@ settings
 /images
 /projects/common/
 /projects/nrf52840_dk_TS4231/Output/
-/bootloader
+/bsp/hal/
+/bootloader/
 
 /.sconsign.dblite
 *.map
