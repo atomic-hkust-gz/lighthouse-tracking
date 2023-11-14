@@ -1,10 +1,17 @@
 /**
-\brief bmx160 driver.
-
-\author Tengfei Chang <tengfei.chang@gmail.com>, Nov 2021.
+\brief TS4231 driver.
+\based on Official lib at https://github.com/TriadSemi/TS4231
+\If you want to use different pins, please change these define:
+\E_Pin P(0.3)
+#define TS4231_N1_E_GPIO_PORT 0
+#define TS4231_N1_E_GPIO_PIN 3
+\D_Pin P(0,4)
+#define TS4231_N1_D_GPIO_PORT 0
+#define TS4231_N1_D_GPIO_PIN 4
+\author Cheng Wang <cwang199@connect.hkust-gz.edu.cn>, Nov 2023.
+\This file is also based on bmx160 driver, author Tengfei Chang <tengfei.chang@gmail.com>, Nov 2021.
 */
 
-// #include "i2c.h"
 #include "ts4231.h"
 #include "SEGGER_RTT.h"
 #include "nrf52840.h"
@@ -57,7 +64,11 @@ TS4231_t ts4231_var = {
 uint16_t light_timeout = 32768 / 2;
 bool Is_lighthouse = false;
 uint8_t Config_result = 0x66;
+uint8_t Origin_state = 0x66;
+uint8_t Current_state = 0x66;
+uint32_t temp_in = 0x01;
 
+// may replace with RTC in future
 void delay_ms(int16_t times)
 {
     // 计算延时的时钟周期数
@@ -69,6 +80,7 @@ void delay_ms(int16_t times)
     }
 }
 
+// may replace with RTC in future
 void delay_us(int16_t times)
 {
     // 计算延时的时钟周期数
@@ -80,6 +92,7 @@ void delay_us(int16_t times)
     }
 }
 
+// use this function in mote_main() to initialize sensor
 void ts4231_init()
 {
     ts_nrf_gpio_cfg_input(TS4231_N1_E_PIN);
@@ -90,7 +103,10 @@ void ts4231_init()
     {
         // this is a segger RTT virtual uart
         SEGGER_RTT_WriteString(0, "lighthouse detected\n");
+        Origin_state = ts4231_checkBus();
         Config_result = ts4231_configDevice();
+        Current_state = ts4231_checkBus();
+
         switch (Config_result)
         {
         case CONFIG_PASS:
@@ -112,24 +128,15 @@ void ts4231_init()
 
         while (Config_result != CONFIG_PASS)
         {
-            Config_result = ts4231_configDevice();
+            // Config_result = ts4231_configDevice();
+            // Current_state = ts4231_checkBus();
         }
     }
 
-    // test the pin
-    // ts4231_pinMode(TS4231_N1_D_PIN, MODE_OUTPUT);
-    // ts4231_pinMode(TS4231_N1_E_PIN, MODE_OUTPUT);
-    // ts4231_digitalWrite(TS4231_N1_D_PIN, OUTPUT_HIGH);
-    // ts4231_digitalWrite(TS4231_N1_D_PIN, OUTPUT_LOW);
-    // ts4231_digitalWrite(TS4231_N1_E_PIN, OUTPUT_HIGH);
-    // ts4231_digitalWrite(TS4231_N1_E_PIN, OUTPUT_LOW);
-    // if( ts4231_configDevice() == 0x04){
-    // Config_OK = 1;
-    // }
-
     // pulseSetup();
 }
-unsigned long time0_tmp;
+
+// essential step, when powering on the sensor.
 bool ts4231_waitForLight(uint16_t light_timeout)
 {
     bool light = false;
@@ -139,8 +146,6 @@ bool ts4231_waitForLight(uint16_t light_timeout)
     if (ts4231_checkBus() == S0_STATE)
     {
         time0 = NRF_RTC0->COUNTER;
-        // debug
-        time0_tmp = time0;
 
         while (exit == false)
         {
@@ -182,7 +187,7 @@ bool ts4231_waitForLight(uint16_t light_timeout)
     return light;
 }
 
-uint16_t watch_readback = 0x00;
+// uint16_t watch_readback = 0x00;
 uint8_t Chip_state = 0x99;
 
 uint8_t ts4231_configDevice()
@@ -215,9 +220,10 @@ uint8_t ts4231_configDevice()
     {
         ts4231_writeConfig(config_val);
         readback = ts4231_readConfig();
-        watch_readback = readback;
+        // watch_readback = readback;
         if (readback == config_val)
         {
+            // readback == config_val
             ts4231_var.configured = true;
             if (ts4231_goToWatch())
             {
@@ -374,7 +380,8 @@ uint8_t ts4231_checkBus(void)
 
     return state;
 }
-// void ts4231_delayUs(unsigned int delay_val);
+
+// simulate the pinMode() in arduino
 void ts4231_pinMode(uint32_t pin_number, uint8_t mode)
 {
     switch (mode)
@@ -388,6 +395,7 @@ void ts4231_pinMode(uint32_t pin_number, uint8_t mode)
     }
 }
 
+// simulate the digitalRead() in arduino
 uint32_t ts4231_digitalRead(uint32_t pin_number)
 {
 
@@ -407,10 +415,10 @@ uint32_t ts4231_digitalRead(uint32_t pin_number)
         nrf_pin_number = pin_number & 0x1f;
     }
 
-    return NRF_Px_port->IN;
+    return (NRF_Px_port->IN >> pin_number) & 1UL;
 }
 
-// Output 0&1 and delay 1us
+// simulate the digitalWrite() in arduino
 void ts4231_digitalWrite(uint32_t pin_number, uint8_t output_mode)
 {
 
@@ -526,8 +534,6 @@ uint16_t ts4231_readConfig(void)
 
 //=========================== variables =======================================
 
-// bmx160x_var_t bmx160x_var;
-
 //=========================== prototypes ======================================
 
 //=========================== public ==========================================
@@ -536,6 +542,7 @@ uint16_t ts4231_readConfig(void)
 
 //=========================== private =========================================
 
+// NRF-SDK interface, configure the pin as input
 void ts_nrf_gpio_cfg_input(uint32_t pin_number)
 {
 
@@ -563,6 +570,7 @@ void ts_nrf_gpio_cfg_input(uint32_t pin_number)
         ((uint32_t)GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos);
 }
 
+// NRF-SDK interface, configure the pin as output
 void ts_nrf_gpio_cfg_output(uint32_t pin_number)
 {
 
@@ -590,6 +598,7 @@ void ts_nrf_gpio_cfg_output(uint32_t pin_number)
         ((uint32_t)GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos);
 }
 
+// NRF-SDK interface, read the pin input
 uint32_t ts_nrf_gpio_read_input(uint32_t pin_number)
 {
 

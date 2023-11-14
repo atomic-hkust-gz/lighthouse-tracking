@@ -26,10 +26,11 @@
       arm_target_device_name="nRF52840_xxAA"
       arm_target_interface_type="SWD"
       c_preprocessor_definitions="NRF52840_XXAA;NRF52840_DK"
-      c_user_include_directories="../../bsp/boards;../../bsp/boards/nrf52840_dk;../../bsp/boards/nrf52840_dk/sdk;../../bsp/chips/bmx160;../../inc;../../bsp/chips/ts4231"
+      c_user_include_directories="../../bsp/boards;../../bsp/boards/nrf52840_dk;../../bsp/boards/nrf52840_dk/sdk;../../bsp/chips/bmx160;../../inc;../../bsp/chips/ts4231;../../bsp/RTT_segger"
       debug_register_definition_file="../../bsp/boards/nrf52840-dk/sdk/nrf52840.svd"
       debug_start_from_entry_point_symbol="No"
       debug_target_connection="J-Link"
+      file_codec="UTF-8"
       gcc_debugging_level="Level 3"
       gcc_entry_point="Reset_Handler"
       linker_output_format="hex"
@@ -59,6 +60,12 @@
       exclude="system_nrf52.c"
       filter="*.s;*.c;*.h"
       path="../../bsp/boards/nrf52840_dk"
+      recurse="Yes" />
+    <folder
+      Name="RTT_segger"
+      exclude=""
+      filter="*.c;*.h"
+      path="../../bsp/RTT_segger"
       recurse="Yes" />
     <folder
       Name="nrf_SDK"
