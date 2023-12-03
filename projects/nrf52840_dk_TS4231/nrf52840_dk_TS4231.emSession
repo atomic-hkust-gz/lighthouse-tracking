@@ -91,7 +91,7 @@
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="5" useTextEdit="1" path="../../bsp/chips/ts4231/timer_ts4231.c" left="0" top="0" codecName="UTF-8"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="1" y="52" useTextEdit="1" openedFrom="D:/Work/atomic/lighthouse_position/ts4231_lib_dev/lighthouse_loco_dev_channel/bsp/chips/ts4231/ppi_gpiote.c" path="../../bsp/chips/ts4231/timer_ts4231.h" left="0" top="23" codecName="UTF-8"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="23" y="44" useTextEdit="1" path="../../bsp/chips/ts4231/ppi_gpiote.h" left="0" top="27" codecName="UTF-8"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="41" useTextEdit="1" path="../../bsp/boards/nrf52840_dk/board_info.h" left="0" top="0" codecName="UTF-8"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="41" useTextEdit="1" path="../../bsp/boards/nrf52840_dk/board_info.h" left="0" top="2" codecName="UTF-8"/>
  </Files>
  <EMStudioWindow activeProject="ts4231" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/cwdbo/work/TRY_LIGHTHOUSE/dev/openwsn-fw/bsp/chips/ts4231" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>
