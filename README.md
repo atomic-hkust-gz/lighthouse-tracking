@@ -10,7 +10,7 @@ A project based on openWSN, see ts4231 firmware at ./bsp/chips/ts4231.
 
 - `./projects/nrf52840_dk_TS4231`
 
-- [x] ### 1.TS4231 firmware
+### 1.TS4231 firmware
 
   #### Instructions
 
@@ -21,7 +21,7 @@ A project based on openWSN, see ts4231 firmware at ./bsp/chips/ts4231.
   - `./bsp/chips/ts4231/ts4231.h`
   - `./bsp/chips/ts4231/ts4231.c`
 
-- [x] ### 2.TS4231 localization with A HTC lighthouse 1.0
+### 2.TS4231 localization with A HTC lighthouse 1.0
 
   #### Instructions
 
@@ -30,7 +30,7 @@ A project based on openWSN, see ts4231 firmware at ./bsp/chips/ts4231.
   (Dec. 2023) Single lighthouse and single TS4231.
 
   #### Files
-  
+
   - `./bsp/chips/ts4231/ppi_gpiote.h`
   - `./bsp/chips/ts4231/ppi_gpiote.c`
 
