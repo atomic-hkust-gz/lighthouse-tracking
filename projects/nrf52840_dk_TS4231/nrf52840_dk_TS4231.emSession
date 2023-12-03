@@ -3,6 +3,7 @@
  <Bookmarks/>
  <Breakpoints groups="Breakpoints" active_group="Breakpoints">
   <BreakpointListItem trigger="" line="8" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" group="Breakpoints" type="Breakpoint" state="4" filename="../../bsp/chips/ts4231/ts_pulse.h" useHWbreakpoint="false"/>
+  <BreakpointListItem trigger="" line="98" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" group="Breakpoints" type="Breakpoint" state="4" filename="../../bsp/chips/ts4231/ts4231.c" useHWbreakpoint="false"/>
   <Exceptions set="MemManage;UsageFault_Coprocessor;UsageFault_CheckingError;UsageFault_StateError;BusFault;ExceptionEntryReturnFault;HardFault"/>
  </Breakpoints>
  <ExecutionProfileWindow/>
@@ -23,16 +24,14 @@
  </Memory4>
  <Project>
   <ProjectSessionItem path="nrf52840-dk_TS4231"/>
-  <ProjectSessionItem path="nrf52840-dk_TS4231;01bsp_sctimer"/>
-  <ProjectSessionItem path="nrf52840-dk_TS4231;01bsp_sctimer;application"/>
-  <ProjectSessionItem path="nrf52840-dk_TS4231;01bsp_uart"/>
-  <ProjectSessionItem path="nrf52840-dk_TS4231;02drv_openserial"/>
   <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231"/>
   <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231;application"/>
   <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231;bsp"/>
+  <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231;bsp;sdk"/>
   <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231;chips_TS4231"/>
   <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231;inc"/>
   <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231;nrf_SDK"/>
+  <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231;RTT_segger"/>
  </Project>
  <Register1>
   <RegisterWindow visibleNodes="CPU - Current Context/r0;CPU - Current Context/r1;CPU - Current Context/r2;CPU - Current Context/r3;CPU - Current Context/r4;CPU - Current Context/r5;CPU - Current Context/r6;CPU - Current Context/r7;CPU - Current Context/r8;CPU - Current Context/r9;CPU - Current Context/r10;CPU - Current Context/r11;CPU - Current Context/r12;CPU - Current Context/sp(r13);CPU - Current Context/lr(r14);CPU - Current Context/pc(r15);CPU - Current Context/apsr;CPU/r0;CPU/r1;CPU/r2;CPU/r3;CPU/r4;CPU/r5;CPU/r6;CPU/r7;CPU/r8;CPU/r9;CPU/r10;CPU/r11;CPU/r12;CPU/sp(r13);CPU/lr(r14);CPU/pc(r15);CPU/xpsr;CPU/MSP;CPU/PSP;CPU/PRIMASK;CPU/BASEPRI;CPU/FAULTMASK;CPU/CONTROL;CPU/internal" binaryNodes="" asciiNodes="" openNodes="CPU - Current Context" name="ts4231" decimalNodes="" octalNodes="" unsignedNodes=""/>
@@ -53,9 +52,23 @@
   <Trace enabled="Yes"/>
  </TraceWindow>
  <Watch1>
-  <Watches active="1" update="Twice a Second">
-   <Watchpoint expression="Config_OK" name="Config_OK" radix="-1" linenumber="90" filename="../../bsp/chips/ts4231/ts4231.c"/>
-   <Watchpoint expression="Is_lighthouse" name="Is_lighthouse" radix="-1" linenumber="88" filename="../../bsp/chips/ts4231/ts4231.c"/>
+  <Watches active="1" update="Each Second">
+   <Watchpoint expression="Is_lighthouse" name="Is_lighthouse" radix="-1" linenumber="141" filename="../../bsp/chips/ts4231/ts4231.c"/>
+   <Watchpoint expression="Config_result" name="Config_result" radix="-1" linenumber="132" filename="../../bsp/chips/ts4231/ts4231.c"/>
+   <Watchpoint expression="watch_readback" name="watch_readback" radix="-1" linenumber="219" filename="../../bsp/chips/ts4231/ts4231.c"/>
+   <Watchpoint expression="Chip_state" name="Chip_state" radix="-1" linenumber="187" filename="../../bsp/chips/ts4231/ts4231.c"/>
+   <Watchpoint expression="Origin_state" name="Origin_state" radix="16" linenumber="52" filename="../../bsp/chips/ts4231/ts4231.c"/>
+   <Watchpoint expression="Current_state" name="Current_state" radix="-1" linenumber="52" filename="../../bsp/chips/ts4231/ts4231.c"/>
+   <Watchpoint expression="t_0_start" name="t_0_start" radix="16" linenumber="72" filename="../../bsp/chips/ts4231/ppi_gpiote.c"/>
+   <Watchpoint expression="flag_sync" name="flag_sync" radix="-1" linenumber="122" filename="../../bsp/chips/ts4231/ppi_gpiote.c"/>
+   <Watchpoint expression="flag_sweep" name="flag_sweep" radix="-1" linenumber="128" filename="../../bsp/chips/ts4231/ppi_gpiote.c"/>
+   <Watchpoint expression="t_1_start" name="t_1_start" radix="10" linenumber="121" filename="../../bsp/chips/ts4231/ppi_gpiote.c"/>
+   <Watchpoint expression="t_opt_pulse" name="t_opt_pulse" radix="10" linenumber="148" filename="../../bsp/chips/ts4231/ppi_gpiote.c"/>
+   <Watchpoint expression="flag_opt" name="flag_opt" radix="-1" linenumber="113" filename="../../bsp/chips/ts4231/ppi_gpiote.c"/>
+   <Watchpoint expression="loco_duration" name="loco_duration" radix="10" linenumber="99" filename="../../bsp/chips/ts4231/ppi_gpiote.c"/>
+   <Watchpoint expression="L_X" name="L_X" radix="10" linenumber="83" filename="../../bsp/chips/ts4231/ppi_gpiote.c"/>
+   <Watchpoint expression="L_Y" name="L_Y" radix="10" linenumber="84" filename="../../bsp/chips/ts4231/ppi_gpiote.c"/>
+   <Watchpoint expression="t_opt_pulse_us" name="t_opt_pulse_us" radix="10" linenumber="134" filename="../../bsp/chips/ts4231/ppi_gpiote.c"/>
   </Watches>
  </Watch1>
  <Watch2>
@@ -68,10 +81,17 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="31" y="393" useTextEdit="1" openedFrom="C:/Users/cwdbo/work/TRY_LIGHTHOUSE/dev/openwsn-fw/projects/nrf52840_dk_TS4231/ts4231/main_ts4231.c" path="../../bsp/chips/ts4231/ts4231.c" left="0" top="409" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="13" y="78" useTextEdit="1" path="ts4231/main_ts4231.c" left="0" top="64" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="../../bsp/chips/ts4231/ts4231.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="29" useTextEdit="1" path="../../bsp/boards/nrf52840_dk/board.c" left="0" selected="1" top="9" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="16" y="79" useTextEdit="1" path="ts4231/main_ts4231.c" left="0" top="69" codecName="UTF-8"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="5" y="73" useTextEdit="1" openedFrom="D:/Work/atomic/lighthouse_position/ts4231_lib_dev/lighthouse_loco_dev_channel/projects/nrf52840_dk_TS4231/ts4231/main_ts4231.c" path="../../bsp/chips/ts4231/ts4231.c" left="0" top="57" codecName="UTF-8"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="18" y="30" useTextEdit="1" openedFrom="D:/Work/atomic/lighthouse_position/ts4231_lib_dev/lighthouse_loco_dev_channel/bsp/chips/ts4231/ts4231.c" path="../../bsp/chips/ts4231/ts4231.h" left="0" top="3" codecName="UTF-8"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="29" useTextEdit="1" path="../../bsp/boards/nrf52840_dk/board.c" left="0" selected="1" top="0" codecName="UTF-8"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="91" y="2144" useTextEdit="1" openedFrom="D:/Work/atomic/lighthouse_position/ts4231_lib_dev/lighthouse_loco_dev_channel/bsp/chips/ts4231/ppi_gpiote.c" path="../../bsp/boards/nrf52840_dk/sdk/nrf52840_bitfields.h" left="0" top="2125" codecName="UTF-8"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="18" y="1826" useTextEdit="1" openedFrom="D:/Work/atomic/lighthouse_position/ts4231_lib_dev/lighthouse_loco_dev_channel/bsp/chips/ts4231/timer_ts4231.c" path="../../bsp/boards/nrf52840_dk/sdk/nrf52840.h" left="0" top="1807" codecName="UTF-8"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="43" y="139" useTextEdit="1" path="../../bsp/chips/ts4231/ppi_gpiote.c" left="0" top="109" codecName="UTF-8"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="5" useTextEdit="1" path="../../bsp/chips/ts4231/timer_ts4231.c" left="0" top="0" codecName="UTF-8"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="1" y="52" useTextEdit="1" openedFrom="D:/Work/atomic/lighthouse_position/ts4231_lib_dev/lighthouse_loco_dev_channel/bsp/chips/ts4231/ppi_gpiote.c" path="../../bsp/chips/ts4231/timer_ts4231.h" left="0" top="23" codecName="UTF-8"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="23" y="44" useTextEdit="1" path="../../bsp/chips/ts4231/ppi_gpiote.h" left="0" top="27" codecName="UTF-8"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="41" useTextEdit="1" path="../../bsp/boards/nrf52840_dk/board_info.h" left="0" top="0" codecName="UTF-8"/>
  </Files>
  <EMStudioWindow activeProject="ts4231" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/cwdbo/work/TRY_LIGHTHOUSE/dev/openwsn-fw/bsp/chips/ts4231" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>

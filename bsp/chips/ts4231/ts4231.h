@@ -4,6 +4,7 @@
 \based on author Tengfei Chang <tengfei.chang@gmail.com>, Nov 2021.
 */
 
+#include "board_info.h"
 #include "stdbool.h"
 #include "stdint.h"
 
@@ -14,6 +15,22 @@
 
 #ifndef _TS4231_
 #define _TS4231_
+
+// E_Pin P(1,0)0.3
+#define TS4231_N1_E_GPIO_PORT 0
+#define TS4231_N1_E_GPIO_PIN 3
+// D_Pin P(0,4)
+#define TS4231_N1_D_GPIO_PORT 0
+#define TS4231_N1_D_GPIO_PIN 4
+
+#define TS4231_N1_E_PIN NRF_GPIO_PIN_MAP(TS4231_N1_E_GPIO_PORT, TS4231_N1_E_GPIO_PIN) // Clock signal pin P0.03
+#define TS4231_N1_D_PIN NRF_GPIO_PIN_MAP(TS4231_N1_D_GPIO_PORT, TS4231_N1_D_GPIO_PIN) // Data signal pin P0.04
+// for GPIO mode
+#define MODE_INPUT 0
+#define MODE_OUTPUT 1
+// for GPIO output
+#define OUTPUT_LOW 0
+#define OUTPUT_HIGH 1
 
 // if BUS_DRV_DLY = 2, it will as slow as arduino uno(ATMEL328P)
 #define BUS_DRV_DLY 1      // delay in microseconds between bus level changes
@@ -31,7 +48,6 @@
 #define CONFIG_PASS 0x04   // configDevice() function status return value
 
 #endif
-
 
 //=========================== variables =======================================
 
@@ -65,7 +81,5 @@ uint32_t ts_nrf_gpio_read_input(uint32_t pin_number);
 // config gpio in/out
 void ts_nrf_gpio_cfg_input(uint32_t pin_number);
 void ts_nrf_gpio_cfg_output(uint32_t pin_number);
-
-
 
 //=========================== private =========================================
