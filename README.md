@@ -21,13 +21,15 @@ A project based on openWSN, see ts4231 firmware at ./bsp/chips/ts4231.
   - `./bsp/chips/ts4231/ts4231.h`
   - `./bsp/chips/ts4231/ts4231.c`
 
-### 2. TS4231 localization with A HTC lighthouse 1.0
+### 2. TS4231 localization with 2 HTC lighthouse 1.0
 
   #### Instructions
 
   This is based on lighthouse positioning using a TS4231 for the receiver and a BPW34S for the photodiode.
 
   (Dec. 2023) Single lighthouse and single TS4231.
+
+  (Dec. 9  2023) Now one or two lighthouses can be positioned normally.
 
   #### Files
 
@@ -40,6 +42,8 @@ A project based on openWSN, see ts4231 firmware at ./bsp/chips/ts4231.
 
 ## REFERENCE
 
+- Thanks to INRIA for their PCBA.
+  
 - OpenWSN firmware: stuff that runs on a mote
   - Part of UC Berkeley's OpenWSN project, http://www.openwsn.org/.
   - also our fork version, [atomic-hkust-gz/openwsn-fw: OpenWSN firmware: stuff that runs on a mote (github.com)](https://github.com/atomic-hkust-gz/openwsn-fw).
