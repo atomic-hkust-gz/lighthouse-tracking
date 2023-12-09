@@ -19,7 +19,10 @@
 #define _PPIGPIOTE_
 
 #endif
-
+//indicate the type of light
+#define type_sync 0
+#define type_sweep 1
+#define type_skip_sync 2
 //=========================== variables =======================================
 
 //=========================== prototypes ======================================
