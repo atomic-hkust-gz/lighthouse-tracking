@@ -16,15 +16,21 @@
 #ifndef _TS4231_
 #define _TS4231_
 
-// E_Pin P(1,0)0.3
+// E_Pin P(0,3)
 #define TS4231_N1_E_GPIO_PORT 0
 #define TS4231_N1_E_GPIO_PIN 3
 // D_Pin P(0,4)
 #define TS4231_N1_D_GPIO_PORT 0
 #define TS4231_N1_D_GPIO_PIN 4
 
+//sync period output P(0,28)
+#define SYNC_OUT_GPIO_PORT 0
+#define SYNC_OUT_GPIO_PIN 28
+
 #define TS4231_N1_E_PIN NRF_GPIO_PIN_MAP(TS4231_N1_E_GPIO_PORT, TS4231_N1_E_GPIO_PIN) // Clock signal pin P0.03
 #define TS4231_N1_D_PIN NRF_GPIO_PIN_MAP(TS4231_N1_D_GPIO_PORT, TS4231_N1_D_GPIO_PIN) // Data signal pin P0.04
+#define SYNC_OUT_PIN NRF_GPIO_PIN_MAP(SYNC_OUT_GPIO_PORT, SYNC_OUT_GPIO_PIN) // sync period output P(0,28)
+
 // for GPIO mode
 #define MODE_INPUT 0
 #define MODE_OUTPUT 1
@@ -71,6 +77,7 @@ bool ts4231_goToWatch(void);
 void ts4231_pinMode(uint32_t pin_number, uint8_t mode);
 uint32_t ts4231_digitalRead(uint32_t pin_number);
 void ts4231_digitalWrite(uint32_t pin_number, uint8_t output_mode);
+void ts4231_quick_watch_from_sleep(void);
 
 void delay_us(int16_t times);
 void delay_ms(int16_t times);

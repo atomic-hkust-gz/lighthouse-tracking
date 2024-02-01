@@ -13,7 +13,8 @@
 */
 
 #include "ts4231.h"
-#include "SEGGER_RTT.h"
+#include "leds.h"
+//#include "SEGGER_RTT.h"
 #include "nrf52840.h"
 #include "nrf52840_bitfields.h"
 #include "stdbool.h"
@@ -66,23 +67,26 @@ void delay_us(int16_t times) {
 int8_t repeat_config = 0;
 // use this function in mote_main() to initialize sensor
 void ts4231_init() {
+  //leds_debug_on();
   ts_nrf_gpio_cfg_input(TS4231_N1_E_PIN);
   ts_nrf_gpio_cfg_input(TS4231_N1_D_PIN);
 
   Is_lighthouse = ts4231_waitForLight(light_timeout);
+  //leds_debug_on();
   if (Is_lighthouse == 0) {
-    SEGGER_RTT_WriteString(0, "NO lighthouse detected\n");
+    //SEGGER_RTT_WriteString(0, "NO lighthouse detected\n");
 
   } else {
     // this is a segger RTT virtual uart
-    SEGGER_RTT_WriteString(0, "lighthouse detected\n");
+    //SEGGER_RTT_WriteString(0, "lighthouse detected\n");
     Origin_state = ts4231_checkBus();
 
     // ts4231_goToWatch();
     Current_state = ts4231_checkBus();
 
     if (Current_state == WATCH_STATE) {
-      SEGGER_RTT_WriteString(0, "already configured\n");
+      //SEGGER_RTT_WriteString(0, "already configured\n");
+      //leds_debug_on();
     } else {
       Config_result = ts4231_configDevice();
       // it is easy to get a WATCH_FAIL, repeat the config process until successful
@@ -90,19 +94,20 @@ void ts4231_init() {
 
         switch (Config_result) {
         case CONFIG_PASS:
-          SEGGER_RTT_WriteString(0, "config success\n");
+          //SEGGER_RTT_WriteString(0, "config success\n");
+          //leds_debug_on();
           break;
         case BUS_FAIL:
-          SEGGER_RTT_WriteString(0, "error:BUS_FAIL\n");
+          //SEGGER_RTT_WriteString(0, "error:BUS_FAIL\n");
           break;
         case VERIFY_FAIL:
-          SEGGER_RTT_WriteString(0, "error:VERIFY_FAIL\n");
+          //SEGGER_RTT_WriteString(0, "error:VERIFY_FAIL\n");
           break;
         case WATCH_FAIL:
-          SEGGER_RTT_WriteString(0, "error:WATCH_FAIL\n");
+          //SEGGER_RTT_WriteString(0, "error:WATCH_FAIL\n");
           break;
         default:
-          SEGGER_RTT_WriteString(0, "Unknown:Program Execution ERROR\n");
+          ////SEGGER_RTT_WriteString(0, "Unknown:Program Execution ERROR\n");
           break;
         }
         repeat_config++;
@@ -111,7 +116,8 @@ void ts4231_init() {
         ts4231_goToWatch();
         Current_state = ts4231_checkBus();
         if (Current_state == WATCH_STATE) {
-          SEGGER_RTT_WriteString(0, "config success\n");
+          //SEGGER_RTT_WriteString(0, "config success\n");
+          //leds_debug_on();
         }
         delay_ms(5);
       }
@@ -466,6 +472,19 @@ uint16_t ts4231_readConfig(void) {
   return readback;
 }
 
+void ts4231_quick_watch_from_sleep(void){
+
+  ts4231_pinMode(TS4231_N1_D_PIN, MODE_OUTPUT);
+  ts4231_digitalWrite(TS4231_N1_D_PIN, OUTPUT_LOW);
+
+  ts4231_pinMode(TS4231_N1_E_PIN, MODE_OUTPUT);
+  ts4231_digitalWrite(TS4231_N1_E_PIN, OUTPUT_HIGH);
+  delay_us(2);
+
+  ts4231_pinMode(TS4231_N1_D_PIN, MODE_INPUT);
+  ts4231_pinMode(TS4231_N1_E_PIN, MODE_INPUT);
+
+}
 //=========================== variables =======================================
 
 //=========================== prototypes ======================================

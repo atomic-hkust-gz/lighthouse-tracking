@@ -17,7 +17,8 @@
  */
 
 #include "ppi_gpiote.h"
-#include "SEGGER_RTT.h"
+//#include "SEGGER_RTT.h"
+#include "leds.h"
 #include "nrf52840.h"
 #include "nrf52840_bitfields.h"
 #include "stdbool.h"
@@ -157,6 +158,8 @@ void GPIOTE_IRQHandler(void) {
           //  Where an even ten digit number is the X-axis, an odd number is the Y-axis.
           ((t_opt_pulse_us / 10) % 2 == 0) ? (loca_x = 1) : (loca_x = 0);
         }
+        //give signal to scum
+        output_sync_light_to_scum();
         // Determine whether this is an A or B base station based on the value of flag_station
         switch (flag_station) {
         case 0:
@@ -210,6 +213,8 @@ void GPIOTE_IRQHandler(void) {
             flag_station--;
           }
         }
+        //give signal to scum
+        output_sync_light_to_scum();
         break;
       default:
         break;
@@ -219,6 +224,14 @@ void GPIOTE_IRQHandler(void) {
       break;
     }
   }
+}
+
+void output_sync_light_to_scum(void){
+  //ts4231_digitalWrite(SYNC_OUT_PIN, OUTPUT_LOW);
+  ts4231_digitalWrite(SYNC_OUT_PIN, OUTPUT_HIGH);
+  delay_us(15);
+  ts4231_digitalWrite(SYNC_OUT_PIN, OUTPUT_LOW);
+  leds_sync_on();
 }
 
 //=========================== public ==========================================
