@@ -22,11 +22,12 @@
       arm_linker_process_stack_size="0"
       arm_linker_stack_size="8192"
       arm_linker_treat_warnings_as_errors="No"
+      arm_linker_variant="SEGGER"
       arm_simulator_memory_simulation_parameter="RWX 00000000,00100000,FFFFFFFF;RWX 20000000,00010000,CDCDCDCD"
       arm_target_device_name="nRF52840_xxAA"
       arm_target_interface_type="SWD"
-      c_preprocessor_definitions="NRF52840_XXAA;NRF52840_DK"
-      c_user_include_directories="../../bsp/boards;../../bsp/boards/nrf52840_dk;../../bsp/boards/nrf52840_dk/sdk;../../bsp/chips/bmx160;../../inc;../../bsp/chips/ts4231;../../bsp/RTT_segger"
+      c_preprocessor_definitions="NRF52833_XXAA;NRF52833"
+      c_user_include_directories="../../bsp/boards;../../bsp/boards/nrf52833;../../bsp/boards/nrf52833/sdk;../../bsp/chips/bmx160;../../inc;../../bsp/chips/ts4231;../../bsp/RTT_segger"
       debug_register_definition_file="../../bsp/boards/nrf52840-dk/sdk/nrf52840.svd"
       debug_start_from_entry_point_symbol="No"
       debug_target_connection="J-Link"
@@ -38,8 +39,8 @@
       linker_printf_width_precision_supported="Yes"
       linker_scanf_fmt_level="long"
       linker_section_placement_file="flash_placement.xml"
-      linker_section_placement_macros="FLASH_PH_START=0x0;FLASH_PH_SIZE=0x100000;RAM_PH_START=0x20000000;RAM_PH_SIZE=0x40000;FLASH_START=0x0;FLASH_SIZE=0x100000;RAM_START=0x20000000;RAM_SIZE=0x40000"
-      linker_section_placements_segments="FLASH1 RX 0x0 0x100000;RAM1 RWX 0x20000000 0x40000"
+      linker_section_placement_macros="FLASH_PH_START=0x000;FLASH_PH_SIZE=0x80000;RAM_PH_START=0x20000000;RAM_PH_SIZE=0x20000;FLASH_START=0x00000;FLASH_SIZE=0x80000;RAM_START=0x20000000;RAM_SIZE=0x20000"
+      linker_section_placements_segments="FLASH1 RX 0x00000000 0x00100000;RAM1 RWX 0x20000000 0x00040000"
       macros=""
       project_directory=""
       project_type="Executable" />
@@ -59,7 +60,7 @@
       Name="bsp"
       exclude="system_nrf52.c"
       filter="*.s;*.c;*.h"
-      path="../../bsp/boards/nrf52840_dk"
+      path="../../bsp/boards/nrf52833"
       recurse="Yes" />
     <folder
       Name="nrf_SDK"
@@ -76,8 +77,11 @@
     <configuration
       LIBRARY_IO_TYPE="RTT"
       Name="Debug"
+      arm_linker_variant="GNU"
       c_preprocessor_definitions="CONFIG_GPIO_AS_PINRESET"
-      c_user_include_directories="../../bsp/nrf_SDK\;../../bsp/ts4231" />
+      c_user_include_directories="../../bsp/nrf_SDK\;../../bsp/ts4231"
+      link_linker_script_file="../../bsp/boards/nrf52833/sdk/nrf52833.ld"
+      link_use_linker_script_file="Yes" />
   </project>
   <project Name="01bsp_leds">
     <configuration

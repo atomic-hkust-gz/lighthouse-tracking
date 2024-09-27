@@ -15,8 +15,8 @@
 #include "ts4231.h"
 #include "leds.h"
 //#include "SEGGER_RTT.h"
-#include "nrf52840.h"
-#include "nrf52840_bitfields.h"
+#include "nrf52833.h"
+#include "nrf52833_bitfields.h"
 #include "stdbool.h"
 
 //=========================== define ==========================================

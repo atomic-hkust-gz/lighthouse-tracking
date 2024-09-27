@@ -16,12 +16,12 @@
 #ifndef _TS4231_
 #define _TS4231_
 
-// E_Pin P(0,3)
+// E_Pin P(0,15)
 #define TS4231_N1_E_GPIO_PORT 0
-#define TS4231_N1_E_GPIO_PIN 3
-// D_Pin P(0,4)
+#define TS4231_N1_E_GPIO_PIN 15
+// D_Pin P(0,17)
 #define TS4231_N1_D_GPIO_PORT 0
-#define TS4231_N1_D_GPIO_PIN 4
+#define TS4231_N1_D_GPIO_PIN 17
 
 //sync period output P(0,28)
 #define SYNC_OUT_GPIO_PORT 0
