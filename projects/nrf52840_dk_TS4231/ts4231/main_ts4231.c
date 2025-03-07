@@ -24,7 +24,7 @@
 
 //=========================== defines =========================================
 
-#define SAMPLE_PERIOD (32768 >> 4) // @32kHz = 1s
+#define SAMPLE_PERIOD (32768 >> 1) // @32kHz = 1s
 #define BUFFER_SIZE 0x08           // 2B*3 axises value + 2B ending with '\r\n'
 
 //=========================== variables =======================================
@@ -74,13 +74,23 @@ int mote_main(void) {
   uart_enableInterrupts();
 
   sctimer_set_callback(cb_compare);
-  // sctimer_setCompare(sctimer_readCounter()+SAMPLE_PERIOD);
+  sctimer_setCompare(sctimer_readCounter()+SAMPLE_PERIOD);
 
   // TS4231 init and configure
+  //ts4231_goToSleep();
+
+leds_error_on();
+  //ts4231_quick_watch_from_sleep();
+  //leds_sync_on();
   ts4231_init();
+  leds_debug_on();
   delay_ms(10);
   // timer,gpiote and ppi must be configured after the ts4231 has been initialized,
   // otherwise it will have an impact on them.
+
+  //init sync light period output pin
+  ts_nrf_gpio_cfg_output(SYNC_OUT_PIN);
+
   TIMER_init();
   gpiote_init();
   ppi_init();
@@ -91,6 +101,7 @@ int mote_main(void) {
   while (1) {
 
     //
+    //leds_error_toggle();
   }
 }
 
@@ -103,6 +114,9 @@ void cb_compare(void) {
 
   // schedule again
   sctimer_setCompare(sctimer_readCounter() + SAMPLE_PERIOD);
+
+  
+    leds_radio_toggle();
 }
 
 void cb_uartTxDone(void) {

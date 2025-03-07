@@ -31,5 +31,6 @@
 
 void ppi_init(void);
 void gpiote_init(void);
+void output_sync_light_to_scum(void);
 
 //=========================== private =========================================

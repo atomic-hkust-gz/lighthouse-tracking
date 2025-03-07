@@ -62,12 +62,6 @@
       path="../../bsp/boards/nrf52840_dk"
       recurse="Yes" />
     <folder
-      Name="RTT_segger"
-      exclude=""
-      filter="*.c;*.h"
-      path="../../bsp/RTT_segger"
-      recurse="Yes" />
-    <folder
       Name="nrf_SDK"
       exclude=""
       filter="*.c;*.h"
@@ -80,7 +74,9 @@
       path="../../bsp/chips/ts4231"
       recurse="Yes" />
     <configuration
+      LIBRARY_IO_TYPE="RTT"
       Name="Debug"
+      c_preprocessor_definitions="CONFIG_GPIO_AS_PINRESET"
       c_user_include_directories="../../bsp/nrf_SDK\;../../bsp/ts4231" />
   </project>
   <project Name="01bsp_leds">
