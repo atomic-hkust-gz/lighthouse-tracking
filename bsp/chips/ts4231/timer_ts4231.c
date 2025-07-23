@@ -12,8 +12,8 @@
  */
 
 #include "timer_ts4231.h"
-#include "nrf52840.h"
-#include "nrf52840_bitfields.h"
+#include "nrf52833.h"
+#include "nrf52833_bitfields.h"
 
 void TIMER_init(void) {
 

@@ -16,7 +16,7 @@
 #ifndef _TIMER_H_
 #define _TIMER_H_
 
-#include "nrf52840.h"
+#include "nrf52833.h"
 
 void TIMER_init(void);
 void TIMER3_init(void);
