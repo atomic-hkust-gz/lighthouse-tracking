@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>串口数据可视化上位机</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>11</y>
+      <width>778</width>
+      <height>480</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="currentIndex">
+     <number>1</number>
+    </property>
+    <widget class="QWidget" name="tabSerial">
+     <attribute name="title">
+      <string>串口配置</string>
+     </attribute>
+     <layout class="QVBoxLayout" name="verticalLayout_Serial">
+      <item>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="portNameLabel">
+          <property name="text">
+           <string>串口名称:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="portNameComboBox"/>
+        </item>
+        <item row="0" column="2">
+         <widget class="QPushButton" name="refreshButton">
+          <property name="text">
+           <string>刷新</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="baudRateLabel">
+          <property name="text">
+           <string>波特率:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="baudRateComboBox"/>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="dataBitsLabel">
+          <property name="text">
+           <string>数据位:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QComboBox" name="dataBitsComboBox"/>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="parityLabel">
+          <property name="text">
+           <string>校验位:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QComboBox" name="parityComboBox"/>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="stopBitsLabel">
+          <property name="text">
+           <string>停止位:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QComboBox" name="stopBitsComboBox"/>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="flowControlLabel">
+          <property name="text">
+           <string>流控制:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QComboBox" name="flowControlComboBox"/>
+        </item>
+        <item row="6" column="0" colspan="3">
+         <widget class="QPushButton" name="connectButton">
+          <property name="text">
+           <string>连接</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0" colspan="3">
+         <widget class="QLabel" name="statusLabel">
+          <property name="text">
+           <string>串口未连接</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="labelRx">
+        <property name="text">
+         <string>接收区:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPlainTextEdit" name="textRx">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="maximumBlockCount">
+         <number>10000</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="labelTx">
+        <property name="text">
+         <string>发送区:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_Tx">
+        <item>
+         <widget class="QLineEdit" name="lineTx"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnSend">
+          <property name="text">
+           <string>发送</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="tabChart">
+     <attribute name="title">
+      <string>坐标轨迹</string>
+     </attribute>
+     <layout class="QVBoxLayout" name="chartLayout"/>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="btnClearPlot">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>561</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>清除轨迹</string>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="vScrollBar">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>30</y>
+      <width>17</width>
+      <height>426</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Orientation::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="hScrollBar">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>490</y>
+      <width>750</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Orientation::Horizontal</enum>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
