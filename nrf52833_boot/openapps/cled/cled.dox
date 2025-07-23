@@ -1,0 +1,7 @@
+/**
+\defgroup cled cled
+
+\brief CoAP LEDs application
+
+\author Ankur Mehta <mehtank@eecs.berkeley.edu>, September 2010.
+*/
