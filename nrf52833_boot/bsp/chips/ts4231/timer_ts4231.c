@@ -33,7 +33,7 @@ void TIMER3_init(void) {
 
   NRF_TIMER3->MODE = TIMER_MODE_MODE_Timer;
   // 2^0 = 1,16MHz
-  NRF_TIMER3->PRESCALER = 5;
+  NRF_TIMER3->PRESCALER = 0;
   NRF_TIMER3->BITMODE = TIMER_BITMODE_BITMODE_32Bit;
   // clear timer before use
   NRF_TIMER3->TASKS_CLEAR = 1;

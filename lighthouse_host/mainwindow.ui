@@ -208,6 +208,58 @@
      <enum>Qt::Orientation::Horizontal</enum>
     </property>
    </widget>
+   <widget class="QPushButton" name="btnCalOrigin">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>560</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>校准原点</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnCal10_10">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>560</y>
+      <width>111</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>校准(10，10)</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnCalN10_N10">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>560</y>
+      <width>101</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>校准(-10,-10)</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnToggleCoord">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>560</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>切换坐标系</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

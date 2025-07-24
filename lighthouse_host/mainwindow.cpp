@@ -121,6 +121,19 @@ MainWindow::MainWindow(QWidget *parent)
             this,        &MainWindow::processBufferedData);
 
 
+
+    //校准功能
+
+    connect(ui->btnCalOrigin, &QPushButton::clicked,
+            this,             &MainWindow::onCalibrateOrigin);
+
+    connect(ui->btnCal10_10,    &QPushButton::clicked,
+            this,               &MainWindow::onCalibrate10_10);
+    connect(ui->btnCalN10_N10,  &QPushButton::clicked,
+            this,               &MainWindow::onCalibrateN10_N10);
+    connect(ui->btnToggleCoord, &QPushButton::clicked,
+            this,               &MainWindow::onToggleCoordSystem);
+
 }
 
 MainWindow::~MainWindow()
@@ -417,4 +430,49 @@ void MainWindow::updateAxes()
     QValueAxis *ay = qobject_cast<QValueAxis*>(c->axes(Qt::Vertical).first());
     if (ax) ax->setRange(xMin, xMax);
     if (ay) ay->setRange(yMin, yMax);
+}
+
+//校准坐标
+void MainWindow::onCalibrateOrigin()
+{
+    if (device1Points.isEmpty()) {
+        QMessageBox::information(this, "提示", "设备1尚未收到任何坐标，无法校准原点！");
+        return;
+    }
+    origin0 = device1Points.last();          // 取最新点
+    ui->statusLabel->setText(
+        QString("原点已校准 → 设备1: (%1, %2)").arg(origin0.x()).arg(origin0.y()));
+    QMessageBox::information(this, "提示", "校准完成!");
+
+    calibRaw.append(device1Points.last());   // 在类里增加 QList<QPointF> calibRaw;
+}
+
+void MainWindow::onCalibrate10_10()
+{
+    if (device1Points.isEmpty()) {
+        QMessageBox::information(this, "提示", "设备1尚未收到任何坐标，无法校准！");
+        return;
+    }
+
+    QPointF raw = device1Points.last();
+    origin0 = raw - QPointF(10, 10);   // 把当前实际坐标减去偏移量，得到“设定原点”
+    ui->statusLabel->setText(
+        QString("已校准(10,10) → 设备1原点: (%1, %2)").arg(origin0.x()).arg(origin0.y()));
+
+    QMessageBox::information(this, "提示", "校准完成!");
+}
+
+void MainWindow::onCalibrateN10_N10()
+{
+    if (device1Points.isEmpty()) {
+        QMessageBox::information(this, "提示", "设备1尚未收到任何坐标，无法校准！");
+        return;
+    }
+
+    QPointF raw = device1Points.last();
+    origin0 = raw - QPointF(-10, -10);   // 把当前实际坐标减去偏移量，得到“设定原点”
+    ui->statusLabel->setText(
+        QString("已校准(-10,-10) → 设备1原点: (%1, %2)").arg(origin0.x()).arg(origin0.y()));
+
+    QMessageBox::information(this, "提示", "校准完成!");
 }

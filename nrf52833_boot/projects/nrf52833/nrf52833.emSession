@@ -165,16 +165,16 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="26" useTextEdit="1" path="../../bsp/chips/ts4231/ppi_gpiote.h" left="0" top="6" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="26" useTextEdit="1" path="../../bsp/chips/ts4231/ppi_gpiote.h" left="0" top="9" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="10" y="157" useTextEdit="1" path="../../bsp/chips/ts4231/ppi_gpiote.c" left="0" top="140" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="28" useTextEdit="1" path="../../bsp/boards/nrf52833/board.c" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="396" useTextEdit="1" path="../../bsp/boards/nrf52833/sdk/cmsis_gcc.h" left="0" top="380" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="28" y="35" useTextEdit="1" path="../../bsp/chips/ts4231/timer_ts4231.c" left="0" top="31" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="52" useTextEdit="1" path="../../bsp/chips/ts4231/ts4231.c" left="0" top="91" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="31" y="20" useTextEdit="1" path="../../bsp/chips/ts4231/ts4231.h" left="0" top="66" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="102" useTextEdit="1" path="nrf52833_lighthouse/main_ts4231.c" left="0" selected="1" top="102" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="27" y="35" useTextEdit="1" path="../../bsp/chips/ts4231/timer_ts4231.c" left="0" top="27" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="52" useTextEdit="1" path="../../bsp/chips/ts4231/ts4231.c" left="0" top="52" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="31" y="20" useTextEdit="1" path="../../bsp/chips/ts4231/ts4231.h" left="0" top="20" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="102" useTextEdit="1" path="nrf52833_lighthouse/main_ts4231.c" left="0" selected="1" top="93" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="30" useTextEdit="1" path="../../bsp/boards/nrf52833/leds.c" left="0" top="13" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="32" y="55" useTextEdit="1" path="../../bsp/boards/leds.h" left="0" top="13" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="32" y="55" useTextEdit="1" path="../../bsp/boards/leds.h" left="0" top="25" codecName="Default"/>
  </Files>
  <EMStudioWindow activeProject="nrf52833_lighthouse" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/bizho/Documents/GitHub/openwsn-fw-develop_FW-893/projects/nrf52833/nrf52833_ts4231" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>
