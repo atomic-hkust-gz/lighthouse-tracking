@@ -30,7 +30,7 @@
      </size>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tabSerial">
      <attribute name="title">
@@ -266,8 +266,8 @@
    <widget class="QLabel" name="labelDev1Coord">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>520</y>
+      <x>540</x>
+      <y>570</y>
       <width>201</width>
       <height>19</height>
      </rect>
@@ -276,7 +276,7 @@
      <enum>QFrame::Shape::Box</enum>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string> </string>
     </property>
    </widget>
   </widget>

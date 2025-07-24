@@ -6,6 +6,7 @@
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QValueAxis>
 #include <QTimer>
+#include <QtCharts/QLineSeries>
 
 //QT_CHARTS_USE_NAMESPACE
 QT_USE_NAMESPACE
@@ -364,6 +365,7 @@ void MainWindow::updatePlot()
         QPointF latestMapped = mapPoint(latestRaw);
         cursorDot->append(latestMapped);
     }
+    updateAxes();
 }
 
 
@@ -409,6 +411,7 @@ void MainWindow::clearPlot()
     }
 
     ui->statusLabel->setText("轨迹已清空");
+    updateAxes();
 }
 
 //事件过滤器
@@ -444,16 +447,41 @@ void MainWindow::onScroll()
 //统一刷新轴范围（updateAxes）
 void MainWindow::updateAxes()
 {
-    QChartView *cv = qobject_cast<QChartView*>(ui->chartLayout->itemAt(0)->widget());
-    if (!cv) return;
-    QChart *c = cv->chart();
+    QChart *c = qobject_cast<QChartView*>(ui->chartLayout->itemAt(0)->widget())->chart();
     if (!c) return;
 
-    qreal xMin = m_center.x() - m_span/2;
-    qreal xMax = m_center.x() + m_span/2;
-    qreal yMin = m_center.y() - m_span/2;
-    qreal yMax = m_center.y() + m_span/2;
+    /* 1. 手动算边界 */
+    double xMin =  qInf(), xMax = -qInf();
+    double yMin =  qInf(), yMax = -qInf();
+    bool has = false;
 
+    for (QAbstractSeries *base : c->series())
+    {
+        QLineSeries *ls = qobject_cast<QLineSeries*>(base);
+        if (!ls) continue;
+
+        const QVector<QPointF> &pts = ls->pointsVector();   // Qt 6.x 通用
+        if (pts.isEmpty()) continue;
+
+        has = true;
+        for (const QPointF &p : pts) {
+            xMin = qMin(xMin, p.x());
+            xMax = qMax(xMax, p.x());
+            yMin = qMin(yMin, p.y());
+            yMax = qMax(yMax, p.y());
+        }
+    }
+
+    /* 2. 无数据给默认范围 */
+    if (!has) { xMin = yMin = -10; xMax = yMax = 10; }
+
+    /* 3. 留 5% 边距，防止压线/单点崩溃 */
+    double dx = (xMax - xMin) * 0.05 + 1e-6;
+    double dy = (yMax - yMin) * 0.05 + 1e-6;
+    xMin -= dx; xMax += dx;
+    yMin -= dy; yMax += dy;
+
+    /* 4. 应用到坐标轴 */
     QValueAxis *ax = qobject_cast<QValueAxis*>(c->axes(Qt::Horizontal).first());
     QValueAxis *ay = qobject_cast<QValueAxis*>(c->axes(Qt::Vertical).first());
     if (ax) ax->setRange(xMin, xMax);
@@ -530,7 +558,7 @@ void MainWindow::onToggleCoordSystem()
     if (useCalibrated) {
         // 目标点固定： (0,0) (10,10) (-10,-10)
         QPointF src[3] = { calibRaw[0], calibRaw[1], calibRaw[2] };
-        QPointF dst[3] = { {0,0}, {5,5}, {-5,-5} };
+        QPointF dst[3] = { {0,0}, {5,5}, {-5,5} };
         if (!solveAffine(src, dst, affineM)) {
             QMessageBox::warning(this, "错误", "校准点共线，无法求仿射变换");
             useCalibrated = false;
@@ -543,6 +571,7 @@ void MainWindow::onToggleCoordSystem()
 
     updatePlot();   // 立即重绘全部设备
     refreshDev1Label();
+    updateAxes();
 }
 bool MainWindow::solveAffine(const QPointF src[3], const QPointF dst[3], double M[6])
 {
