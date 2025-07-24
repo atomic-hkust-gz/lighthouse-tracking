@@ -14,7 +14,7 @@
     data[8] = 0xAF
 
 
-## update v4.0
+### update v4.0
 1. Add the lighthouse coordinate system conversion function
     The conversion can be completed by providing three coordinates with a matrix.
 2. Fixed several bugs
