@@ -40,7 +40,9 @@ private slots:
     void onCalibrateOrigin(); // 校准原点
     void onCalibrate10_10();      // 校准(10,10)
     void onCalibrateN10_N10();    // 校准(-10,-10)
-     void onToggleCoordSystem();       // 切换坐标系按钮槽
+    void onToggleCoordSystem();
+
+
 
 private:
     Ui::MainWindow *ui;
@@ -63,12 +65,15 @@ private:
      QPointF origin10_10; //校准(10,10)
      QPointF originN10_N10; //校准(-10,-10)
 
+     QList<QPointF> calibRaw;          // 原始 3 点（只用设备1）
+     double affineM[6] = {1,0,0, 0,1,0}; // x'=M0*x+M1*y+M2, y'=M3*x+M4*y+M5
+     bool useCalibrated = false;       // 当前是否启用校准坐标
+     bool calibReady    = false;       // 3 点是否录完
 
-     bool useCalibrated = false;       // 当前是否使用校准坐标系
-     struct CalibPoint { QPointF raw; QPointF ideal; };
-     QList<CalibPoint> calibPoints;    // 保存三对原始↔理想坐标
-     double aX = 1.0, bX = 0.0;        // 一次函数 x' = aX * x + bX
-     double aY = 1.0, bY = 0.0;        // 一次函数 y' = aY * y + bY
+     QPointF mapPoint(const QPointF &p) const;   // 把原始坐标→校准坐标
+     bool solveAffine(const QPointF src[3], const QPointF dst[3], double M[6]);
+
+     void refreshDev1Label();
 
 };
 #endif // MAINWINDOW_H
