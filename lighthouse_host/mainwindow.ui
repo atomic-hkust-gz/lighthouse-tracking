@@ -234,7 +234,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>校准(10，10)</string>
+     <string>校准点1</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnCalN10_N10">
@@ -247,7 +247,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>校准(-10,-10)</string>
+     <string>校准点2</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnToggleCoord">
@@ -276,7 +276,7 @@
      <enum>QFrame::Shape::Box</enum>
     </property>
     <property name="text">
-     <string> </string>
+     <string/>
     </property>
    </widget>
   </widget>

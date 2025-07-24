@@ -7,7 +7,7 @@
 #include <QVector>
 #include <QPointF>
 #include <QtCharts/QScatterSeries>
-
+#include <QtCharts/QValueAxis>
 
 
 
@@ -74,6 +74,8 @@ private:
      bool solveAffine(const QPointF src[3], const QPointF dst[3], double M[6]);
 
      void refreshDev1Label();
+     QValueAxis *axisX = nullptr;
+     QValueAxis *axisY = nullptr;
 
 };
 #endif // MAINWINDOW_H
