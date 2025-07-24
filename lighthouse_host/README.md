@@ -1,7 +1,5 @@
 # lighthouse_host
-
-## Date 2025-7-22
-## Version 3.1
+## Version 4.0
 ## Email:    bizhoutao.terry@gmail.com
 
 ## base function    
@@ -16,7 +14,10 @@
     data[8] = 0xAF
 
 
-## some problems
+### update v4.0
+1. Add the lighthouse coordinate system conversion function
+    The conversion can be completed by providing three coordinates with a matrix.
+2. Fixed several bugs
 
 ### update v3.1 
  update a lightmark in the map
