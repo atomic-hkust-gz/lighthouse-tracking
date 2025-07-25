@@ -1,7 +1,7 @@
 
 # brief 
-    This program shows how to use lighthouse to obtain data and Bluetooth to transmit coordinates.
-    It is a combination of program "bsp_radio_ble" and program "nrf52833_lighthouse". There are several functions for control.
+This program shows how to use lighthouse to obtain data and Bluetooth to transmit coordinates.
+It is a combination of program "bsp_radio_ble" and program "nrf52833_lighthouse". There are several functions for control.
 1. "ts4231.h" Used to control the TS4231 pin
         // E_Pin P(0,xx)
         #define TS4231_N1_E_GPIO_PORT 0
