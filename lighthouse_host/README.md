@@ -4,6 +4,11 @@
 
 ## base function    
     The host can achicve functions include Serial helper, draw the Coordinates.
+## relase
+    You can directly open the \build\Desktop_Qt_6_9_1_MinGW_64_bit-relase\release\lighthouse_host.exe
+    and run the host computer directly, without the need for qt compilation.
+
+## instructions
 
 ## Serial Communication Protocols
 
