@@ -8,8 +8,12 @@ The branch include three parts.
 2. lighthouseTag_nrf52833_PCB
     This PCB file was drawn using LCeda and both PDF and AD files were exported. If there are issues such as garbled characters, please import it using the web version of LCeda pro to open it.
 
-3. nrf52833_radio_ble_lighthouse
-    This program shows how to use lighthouse to obtain data and Bluetooth to transmit coordinates. 
+   For more details, please refer to the readme in the specific folder
+
+4. nrf52833_radio_ble_lighthouse
+    This program shows how to use lighthouse to obtain data and Bluetooth to transmit coordinates.
+
+   For more details, please refer to the readme in the specific folder
 
 
 # author 
