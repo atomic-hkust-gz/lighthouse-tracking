@@ -9,9 +9,9 @@ The branch include three parts.
     This PCB file was drawn using LCeda and both PDF and AD files were exported. If there are issues such as garbled characters, please import it using the web version of LCeda pro to open it.
 
 3. nrf52833_radio_ble_lighthouse
-    The host can achicve functions include Serial helper, draw the Coordinates.
+    This program shows how to use lighthouse to obtain data and Bluetooth to transmit coordinates. 
 
 
 # author 
-Zhoutao Bi <bizhoutao.terry@gmail.com> july 2025
+Zhoutao Bi <bizhoutao.terry@gmail.com>  july 2025
 
