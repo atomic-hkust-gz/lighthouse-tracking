@@ -104,9 +104,11 @@ MainWindow::~MainWindow()
 /* ====================================================================== */
 void MainWindow::addDeviceSeries(int id)
 {
-    if (deviceSeriesMap.contains(id)) return;   // 已存在
+    if (deviceSeriesMap.contains(id)) return;
+
     QLineSeries *series = new QLineSeries();
     series->setName(QString("设备%1").arg(id));
+    series->setColor(nextDeviceColor(id));   // ← 只加这一句
     chart->addSeries(series);
     series->attachAxis(axisX);
     series->attachAxis(axisY);
@@ -528,4 +530,23 @@ void MainWindow::refreshDeviceCountLabel()
     int maxDev  = MAX_DEVICE;
     ui->labelDeviceCount->setText(
         QString("设备数：%1 / %2").arg(current).arg(maxDev));
+}
+
+QColor MainWindow::nextDeviceColor(int id) const
+{
+    /* Qt 自带 20 种标准色，先用完再说 */
+    static const QList<QColor> base = {
+        Qt::red, Qt::green, Qt::blue, Qt::cyan, Qt::magenta,
+        Qt::yellow, Qt::darkRed, Qt::darkGreen, Qt::darkBlue, Qt::darkCyan,
+        Qt::darkMagenta, Qt::darkYellow, Qt::gray, Qt::darkGray, Qt::lightGray,
+        Qt::black, Qt::white, Qt::transparent, QColor(255,165,0), QColor(128,0,128)
+    };
+
+    if (id <= base.size())
+        return base[id - 1];
+
+    /* 20 个以后用 HSV 均匀取色，饱和度亮度固定，只转色相 */
+    const qreal golden = 0.618033988749895;   // 黄金角
+    qreal hue = std::fmod(id * golden * 360.0, 360.0);
+    return QColor::fromHsvF(hue, 0.95, 0.95);
 }

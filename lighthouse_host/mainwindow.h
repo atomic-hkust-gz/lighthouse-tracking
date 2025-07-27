@@ -90,6 +90,7 @@ private:
      static const QVector<QColor> colorPool;
      QSet<QColor> usedColors;
      QColor pickNextColor();
+     QColor nextDeviceColor(int id) const;
 
 
 };
