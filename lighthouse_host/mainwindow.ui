@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1097</width>
+    <height>819</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,10 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>11</x>
-      <y>11</y>
-      <width>778</width>
-      <height>480</height>
+      <x>20</x>
+      <y>20</y>
+      <width>1041</width>
+      <height>621</height>
      </rect>
     </property>
     <property name="maximumSize">
@@ -30,7 +30,7 @@
      </size>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tabSerial">
      <attribute name="title">
@@ -175,8 +175,8 @@
    <widget class="QPushButton" name="btnClearPlot">
     <property name="geometry">
      <rect>
-      <x>11</x>
-      <y>561</y>
+      <x>21</x>
+      <y>711</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -188,10 +188,10 @@
    <widget class="QScrollBar" name="vScrollBar">
     <property name="geometry">
      <rect>
-      <x>780</x>
-      <y>30</y>
+      <x>1070</x>
+      <y>10</y>
       <width>17</width>
-      <height>426</height>
+      <height>631</height>
      </rect>
     </property>
     <property name="orientation">
@@ -201,9 +201,9 @@
    <widget class="QScrollBar" name="hScrollBar">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>490</y>
-      <width>750</width>
+      <x>20</x>
+      <y>650</y>
+      <width>1041</width>
       <height>17</height>
      </rect>
     </property>
@@ -214,8 +214,8 @@
    <widget class="QPushButton" name="btnCalOrigin">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>560</y>
+      <x>120</x>
+      <y>710</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -227,8 +227,8 @@
    <widget class="QPushButton" name="btnCal10_10">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>560</y>
+      <x>220</x>
+      <y>710</y>
       <width>111</width>
       <height>28</height>
      </rect>
@@ -240,8 +240,8 @@
    <widget class="QPushButton" name="btnCalN10_N10">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>560</y>
+      <x>340</x>
+      <y>710</y>
       <width>101</width>
       <height>28</height>
      </rect>
@@ -253,8 +253,8 @@
    <widget class="QPushButton" name="btnToggleCoord">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>560</y>
+      <x>450</x>
+      <y>710</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -266,8 +266,8 @@
    <widget class="QLabel" name="labelDev1Coord">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>570</y>
+      <x>550</x>
+      <y>720</y>
       <width>201</width>
       <height>19</height>
      </rect>
@@ -282,8 +282,8 @@
    <widget class="QPushButton" name="btnAddDevice">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>530</y>
+      <x>20</x>
+      <y>680</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -295,14 +295,27 @@
    <widget class="QPushButton" name="btnDelDevice">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>530</y>
+      <x>120</x>
+      <y>680</y>
       <width>93</width>
       <height>28</height>
      </rect>
     </property>
     <property name="text">
      <string>减少设备</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelDeviceCount">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>680</y>
+      <width>111</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>设备数：2 / 50</string>
     </property>
    </widget>
   </widget>

@@ -47,6 +47,7 @@ private slots:
     void onDelDevice();
     void removeDeviceSeries(int id);
     int nextDeviceId() const;
+    void refreshDeviceCountLabel();
 
 private:
     Ui::MainWindow *ui;
@@ -85,6 +86,11 @@ private:
      QChartView *chartView;
      QMap<int, QLineSeries*> deviceSeriesMap;
      QMap<int, QVector<QPointF>> devicePointMap;
+
+     static const QVector<QColor> colorPool;
+     QSet<QColor> usedColors;
+     QColor pickNextColor();
+
 
 };
 #endif // MAINWINDOW_H

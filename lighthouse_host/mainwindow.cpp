@@ -8,6 +8,7 @@
 #include <QtCharts/QScatterSeries>
 #include <QTimer>
 
+
 QT_USE_NAMESPACE
 
     static const int MAX_DEVICE = 50;   // 上限
@@ -89,6 +90,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnDelDevice,    &QPushButton::clicked, this, &MainWindow::onDelDevice);
 
     refreshDeviceButtons();  // 初始可用性
+    refreshDeviceCountLabel();
 }
 
 MainWindow::~MainWindow()
@@ -136,6 +138,7 @@ void MainWindow::onAddDevice()
     int id = nextDeviceId();
     addDeviceSeries(id);
     refreshDeviceButtons();
+    refreshDeviceCountLabel();
 }
 
 void MainWindow::onDelDevice()
@@ -148,6 +151,7 @@ void MainWindow::onDelDevice()
     int id = deviceSeriesMap.lastKey();
     removeDeviceSeries(id);
     refreshDeviceButtons();
+    refreshDeviceCountLabel();
 }
 
 void MainWindow::refreshDeviceButtons()
@@ -517,4 +521,11 @@ void MainWindow::refreshDev1Label()
                        .arg(show.y(), 0, 'f', 2);
 
     ui->labelDev1Coord->setText(text);
+}
+void MainWindow::refreshDeviceCountLabel()
+{
+    int current = deviceSeriesMap.size();
+    int maxDev  = MAX_DEVICE;
+    ui->labelDeviceCount->setText(
+        QString("设备数：%1 / %2").arg(current).arg(maxDev));
 }
