@@ -65,6 +65,8 @@ public:
     QPushButton *btnCalN10_N10;
     QPushButton *btnToggleCoord;
     QLabel *labelDev1Coord;
+    QPushButton *btnAddDevice;
+    QPushButton *btnDelDevice;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -227,6 +229,12 @@ public:
         labelDev1Coord->setObjectName("labelDev1Coord");
         labelDev1Coord->setGeometry(QRect(540, 570, 201, 19));
         labelDev1Coord->setFrameShape(QFrame::Shape::Box);
+        btnAddDevice = new QPushButton(centralWidget);
+        btnAddDevice->setObjectName("btnAddDevice");
+        btnAddDevice->setGeometry(QRect(10, 530, 93, 28));
+        btnDelDevice = new QPushButton(centralWidget);
+        btnDelDevice->setObjectName("btnDelDevice");
+        btnDelDevice->setGeometry(QRect(110, 530, 93, 28));
         MainWindow->setCentralWidget(centralWidget);
 
         retranslateUi(MainWindow);
@@ -260,6 +268,8 @@ public:
         btnCalN10_N10->setText(QCoreApplication::translate("MainWindow", "\346\240\241\345\207\206\347\202\2712", nullptr));
         btnToggleCoord->setText(QCoreApplication::translate("MainWindow", "\345\210\207\346\215\242\345\235\220\346\240\207\347\263\273", nullptr));
         labelDev1Coord->setText(QString());
+        btnAddDevice->setText(QCoreApplication::translate("MainWindow", "\346\267\273\345\212\240\350\256\276\345\244\207", nullptr));
+        btnDelDevice->setText(QCoreApplication::translate("MainWindow", "\345\207\217\345\260\221\350\256\276\345\244\207", nullptr));
     } // retranslateUi
 
 };

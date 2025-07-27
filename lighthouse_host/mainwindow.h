@@ -8,8 +8,8 @@
 #include <QPointF>
 #include <QtCharts/QScatterSeries>
 #include <QtCharts/QValueAxis>
-
-
+#include <QtCharts/QChartView>
+#include <QtCharts/QLineSeries>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,19 +30,23 @@ private slots:
     void on_connectButton_clicked();
     void on_refreshButton_clicked();
     void readSerialData();
-    void on_tabWidget_currentChanged(int index);
     void on_btnSend_clicked();
     void processBufferedData();
 
-    void onZoom(qreal factor);      // 滚轮缩放
+
     void onScroll();                // 滑条移动
     void updateAxes();              // 统一刷新轴范围
     void onCalibrateOrigin(); // 校准原点
     void onCalibrate10_10();      // 校准(10,10)
     void onCalibrateN10_N10();    // 校准(-10,-10)
     void onToggleCoordSystem();
-
-
+    void addDeviceSeries(int id);
+    void addReferenceLine(Qt::Orientation o);
+    void refreshDeviceButtons();
+    void onAddDevice();
+    void onDelDevice();
+    void removeDeviceSeries(int id);
+    int nextDeviceId() const;
 
 private:
     Ui::MainWindow *ui;
@@ -76,6 +80,11 @@ private:
      void refreshDev1Label();
      QValueAxis *axisX = nullptr;
      QValueAxis *axisY = nullptr;
+
+     QChart *chart;
+     QChartView *chartView;
+     QMap<int, QLineSeries*> deviceSeriesMap;
+     QMap<int, QVector<QPointF>> devicePointMap;
 
 };
 #endif // MAINWINDOW_H
