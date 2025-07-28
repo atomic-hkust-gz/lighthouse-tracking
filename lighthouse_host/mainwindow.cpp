@@ -169,6 +169,11 @@ void MainWindow::removeDeviceSeries(int id)
         delete deviceLabelMap.take(id);
     }
 
+    int row = id - 1;
+    if (row < ui->tableDeviceStatus->rowCount()) {
+        ui->tableDeviceStatus->removeRow(row);
+    }
+
 
 }
 
@@ -497,9 +502,8 @@ void MainWindow::onCalibrate10_10()
     }
 
     QPointF raw = device1Points.last();
-    origin0 = raw - QPointF(10, 10);   // 把当前实际坐标减去偏移量，得到“设定原点”
     ui->statusLabel->setText(
-        QString("已校准(10,10) → 设备1原点: (%1, %2)").arg(origin0.x()).arg(origin0.y()));
+        QString("已校准→ 设备1原点: (%1, %2)").arg(origin0.x()).arg(origin0.y()));
 
 
     calibRaw.append(device1Points.last());
@@ -517,9 +521,8 @@ void MainWindow::onCalibrateN10_N10()
     }
 
     QPointF raw = device1Points.last();
-    origin0 = raw - QPointF(-10, -10);   // 把当前实际坐标减去偏移量，得到“设定原点”
     ui->statusLabel->setText(
-        QString("已校准(-10,-10) → 设备1原点: (%1, %2)").arg(origin0.x()).arg(origin0.y()));
+        QString("已校准 → 设备1原点: (%1, %2)").arg(origin0.x()).arg(origin0.y()));
 
 
     calibRaw.append(device1Points.last());
@@ -539,7 +542,7 @@ void MainWindow::onToggleCoordSystem()
 
     if (useCalibrated) {
         QPointF src[3] = { calibRaw[0], calibRaw[1], calibRaw[2] };
-        QPointF dst[3] = { {0,0}, {5,5}, {-5,5} };
+        QPointF dst[3] = { {0,0}, {10,10}, {-10,10} };
         if (!solveAffine(src, dst, affineM)) {
             QMessageBox::warning(this, "错误", "校准点共线，无法求仿射变换");
             useCalibrated = false;
