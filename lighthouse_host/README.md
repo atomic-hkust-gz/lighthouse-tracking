@@ -120,6 +120,7 @@ Pay attention to whether the coordinate axis is before or after the conversion
 ## Serial Communication Protocols
 
 The MCU is sent to the host computer
+
     data[0] = 0xFA
     data[1] = device ID (0x01 or 0x02...)
     data[2]-data[4] x axis
