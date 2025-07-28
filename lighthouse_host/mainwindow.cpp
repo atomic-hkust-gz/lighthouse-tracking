@@ -121,6 +121,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableDeviceStatus->setHorizontalHeaderLabels({"设备ID", "状态", "数据速率(Hz)", "离线时间"});
     ui->tableDeviceStatus->horizontalHeader()->setStretchLastSection(true);
 
+    setWindowTitle("lighthouse host [HKUST(GZ) ATOMIC]");
+
 }
 
 MainWindow::~MainWindow()
@@ -137,13 +139,22 @@ void MainWindow::addDeviceSeries(int id)
     if (deviceSeriesMap.contains(id)) return;
 
     QLineSeries *series = new QLineSeries();
-    series->setName(QString("设备%1").arg(id));
+    series->setName(QString("device%1").arg(id));
     series->setColor(nextDeviceColor(id));   // ← 只加这一句
     chart->addSeries(series);
     series->attachAxis(axisX);
     series->attachAxis(axisY);
     deviceSeriesMap.insert(id, series);
     devicePointMap.insert(id, QVector<QPointF>());
+
+    // ✅ 添加标签
+    QGraphicsSimpleTextItem *label = new QGraphicsSimpleTextItem(QString("device%1").arg(id));
+    label->setBrush(Qt::black);
+    label->setFont(QFont("Arial", 10, QFont::Bold));
+    label->setZValue(100); // 保证在最上层
+    chartView->scene()->addItem(label);
+    deviceLabelMap.insert(id, label);
+
 }
 
 void MainWindow::removeDeviceSeries(int id)
@@ -152,6 +163,13 @@ void MainWindow::removeDeviceSeries(int id)
     chart->removeSeries(deviceSeriesMap.value(id));
     delete deviceSeriesMap.take(id);
     devicePointMap.remove(id);
+
+    if (deviceLabelMap.contains(id)) {
+        chartView->scene()->removeItem(deviceLabelMap[id]);
+        delete deviceLabelMap.take(id);
+    }
+
+
 }
 
 int MainWindow::nextDeviceId() const
@@ -359,6 +377,22 @@ void MainWindow::updatePlot()
     if (!latest.isNull()) cursorDot->append(mapPoint(latest));
 
     updateAxes();
+
+    // 更新设备标签位置
+    for (auto it = devicePointMap.begin(); it != devicePointMap.end(); ++it) {
+        int id = it.key();
+        const QVector<QPointF>& points = it.value();
+        if (!points.isEmpty()) {
+            QPointF lastRaw = points.last();
+            QPointF mapped = mapPoint(lastRaw); // 应用仿射变换
+
+            QPointF scenePos = chart->mapToPosition(mapped);
+            QGraphicsSimpleTextItem *label = deviceLabelMap[id];
+            label->setPos(scenePos + QPointF(10, -20)); // 偏移一点，避免挡住点
+        }
+    }
+
+
 }
 
 void MainWindow::clearPlot()

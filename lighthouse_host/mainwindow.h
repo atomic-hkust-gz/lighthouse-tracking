@@ -10,6 +10,8 @@
 #include <QtCharts/QValueAxis>
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
+#include <QGraphicsSimpleTextItem>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -113,6 +115,7 @@ private:
 
      QMap<int, DeviceStatus> deviceStatusMap;
      QTimer *statusUpdateTimer;
+     QMap<int, QGraphicsSimpleTextItem*> deviceLabelMap;
 
 
 
