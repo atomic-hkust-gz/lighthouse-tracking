@@ -96,7 +96,7 @@ Display the current number of devices, the frequency of the data, and whether it
 ### 5
 Devices can be added or removed, with a maximum of 50 devices added
 ### 6
-Three-point calibration, with the three points being (0,0),(10,10), and (10,-10).
+Three-point calibration, with the three points being (0,0),(10,10), and (-10,10).
 Please place lighthouseMag at these three positions and calibrate them in sequence. 
 Please note that calibration must be done using Device 1!!
 
