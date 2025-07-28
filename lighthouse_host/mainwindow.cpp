@@ -632,6 +632,51 @@ void MainWindow::onAddManualPoint()
     }
 
     addShapeMarker(deviceId, point);  // 对应颜色的三角形
+
+    // 1) 取数据
+    deviceId = ui->comboDeviceId->currentText().toInt(nullptr, 16);
+    x = ui->lineManualX->text().toInt();
+    y = ui->lineManualY->text().toInt();
+
+    // 2) 构造 9 字节帧
+    // ---------- 24-bit 补码打包 ----------
+    auto toInt24 = [](int v) -> quint32 {
+        // 把 32-bit 裁剪成 24-bit 补码
+        v &= 0xFFFFFF;
+        return static_cast<quint32>(v);
+    };
+
+    quint32 x24 = toInt24(x);
+    quint32 y24 = toInt24(y);
+
+    QByteArray pkt;
+    pkt.append(static_cast<char>(0xFB));
+    pkt.append(static_cast<char>(deviceId & 0xFF));
+    pkt.append(static_cast<char>((x24 >> 16) & 0xFF));
+    pkt.append(static_cast<char>((x24 >> 8)  & 0xFF));
+    pkt.append(static_cast<char>( x24        & 0xFF));
+    pkt.append(static_cast<char>((y24 >> 16) & 0xFF));
+    pkt.append(static_cast<char>((y24 >> 8)  & 0xFF));
+    pkt.append(static_cast<char>( y24        & 0xFF));
+    pkt.append(static_cast<char>(0xAF));
+
+
+    // 3) 串口发送
+    if (serialPort->isOpen()) {
+        serialPort->write(pkt);
+        ui->textRx->appendPlainText(
+            QString("TX[9] %1").arg(pkt.toHex(' ').toUpper()));
+    } else {
+        QMessageBox::warning(this, "串口未打开", "请先连接串口再发送");
+    }
+
+
+
+
+
+
+
+
 }
 
 
