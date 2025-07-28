@@ -356,9 +356,27 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
 {
     if (obj == chartView && event->type() == QEvent::Wheel) {
         QWheelEvent *we = static_cast<QWheelEvent*>(event);
+
+        // 鼠标在图表上的逻辑坐标
+        QPointF mousePos = chartView->mapToScene(we->position().toPoint());
+        QPointF chartPos = chart->mapToValue(mousePos);
+
+        // 缩放因子
         qreal factor = (we->angleDelta().y() > 0) ? 0.8 : 1.25;
-        m_span *= factor;
-        m_span = qBound(10.0, m_span, 2e4);
+
+        // 新 span（不能超限）
+        qreal newSpan = qBound(10.0, m_span * factor, 2e4);
+        if (qFuzzyCompare(newSpan, m_span))
+            return true;            // 无变化
+
+        // 计算新的中心：保持鼠标指向的逻辑点不变
+        QPointF oldCenter = m_center;
+        QPointF delta = chartPos - oldCenter;
+        QPointF newCenter = chartPos - delta * (newSpan / m_span);
+
+        m_span  = newSpan;
+        m_center = newCenter;
+
         updateAxes();
         return true;
     }
@@ -549,4 +567,10 @@ QColor MainWindow::nextDeviceColor(int id) const
     const qreal golden = 0.618033988749895;   // 黄金角
     qreal hue = std::fmod(id * golden * 360.0, 360.0);
     return QColor::fromHsvF(hue, 0.95, 0.95);
+}
+
+QPointF MainWindow::mapToChart(const QPoint &pos) const
+{
+    // 把图表视图坐标 → 图表坐标
+    return chart->mapToValue(chartView->mapFromGlobal(mapToGlobal(pos)));
 }

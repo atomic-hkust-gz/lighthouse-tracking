@@ -92,6 +92,8 @@ private:
      QColor pickNextColor();
      QColor nextDeviceColor(int id) const;
 
+     QPointF mapToChart(const QPoint &pos) const;   // < 把窗口坐标 → 图表逻辑坐标
+
 
 };
 #endif // MAINWINDOW_H
