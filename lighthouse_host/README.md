@@ -5,7 +5,7 @@
 ## base function    
     The host can achicve functions include Serial helper, draw the Coordinates.
 ## release
-    you can loadown the zip, and click the lighthouse_host.exe
+    you can loadown the release.rar, and click the lighthouse_host.exe
 ## Introduction
 
 Serial port communication
