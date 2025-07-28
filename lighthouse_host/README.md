@@ -9,7 +9,7 @@
     and run the host computer directly, without the need for qt compilation.
 
 ## instructions
-![image](/png/p1.png)
+
 
 ## Serial Communication Protocols
 
