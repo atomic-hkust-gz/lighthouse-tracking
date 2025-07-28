@@ -15,6 +15,15 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+struct DeviceStatus {
+    bool online = false;
+    qint64 lastUpdateTime = 0;
+    int packetCount = 0;
+    double dataRateHz = 0.0;
+};
+
+
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -51,6 +60,10 @@ private slots:
     void onAddManualPoint();
     void addShapeMarker(int deviceId, const QPointF &rawPoint);
     void on_btnClearMarkers_clicked();
+    void updateDeviceStatus();
+    void updateDeviceStatusUI(int id, const DeviceStatus &status);
+
+
 
 private:
     Ui::MainWindow *ui;
@@ -97,6 +110,11 @@ private:
 
      QPointF mapToChart(const QPoint &pos) const;   // < 把窗口坐标 → 图表逻辑坐标
      QList<QScatterSeries*> manualMarkers;
+
+     QMap<int, DeviceStatus> deviceStatusMap;
+     QTimer *statusUpdateTimer;
+
+
 
 
 };

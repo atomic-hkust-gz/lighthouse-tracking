@@ -66,7 +66,11 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         "addShapeMarker",
         "deviceId",
         "rawPoint",
-        "on_btnClearMarkers_clicked"
+        "on_btnClearMarkers_clicked",
+        "updateDeviceStatus",
+        "updateDeviceStatusUI",
+        "DeviceStatus",
+        "status"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -122,6 +126,12 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         }}),
         // Slot 'on_btnClearMarkers_clicked'
         QtMocHelpers::SlotData<void()>(28, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'updateDeviceStatus'
+        QtMocHelpers::SlotData<void()>(29, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'updateDeviceStatusUI'
+        QtMocHelpers::SlotData<void(int, const DeviceStatus &)>(30, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 14 }, { 0x80000000 | 31, 32 },
+        }}),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -168,6 +178,8 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 19: _t->onAddManualPoint(); break;
         case 20: _t->addShapeMarker((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QPointF>>(_a[2]))); break;
         case 21: _t->on_btnClearMarkers_clicked(); break;
+        case 22: _t->updateDeviceStatus(); break;
+        case 23: _t->updateDeviceStatusUI((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<DeviceStatus>>(_a[2]))); break;
         default: ;
         }
     }
@@ -192,14 +204,14 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 22)
+        if (_id < 24)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 22;
+        _id -= 24;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 22)
+        if (_id < 24)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 22;
+        _id -= 24;
     }
     return _id;
 }

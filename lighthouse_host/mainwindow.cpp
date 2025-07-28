@@ -7,7 +7,7 @@
 #include <QtCharts/QValueAxis>
 #include <QtCharts/QScatterSeries>
 #include <QTimer>
-
+#include <QDateTime>
 
 QT_USE_NAMESPACE
 
@@ -111,6 +111,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->btnClearMarkers, &QPushButton::clicked,
             this, &MainWindow::on_btnClearMarkers_clicked);
+
+    statusUpdateTimer = new QTimer(this);
+    statusUpdateTimer->setInterval(500); // 每秒更新2次
+    connect(statusUpdateTimer, &QTimer::timeout, this, &MainWindow::updateDeviceStatus);
+    statusUpdateTimer->start();
+
+    ui->tableDeviceStatus->setColumnCount(4);
+    ui->tableDeviceStatus->setHorizontalHeaderLabels({"设备ID", "状态", "数据速率(Hz)", "离线时间"});
+    ui->tableDeviceStatus->horizontalHeader()->setStretchLastSection(true);
+
 }
 
 MainWindow::~MainWindow()
@@ -287,6 +297,13 @@ void MainWindow::parseDataPacket(const QByteArray &packet)
                                  .arg(deviceId, 2, 16, QChar('0'))
                                  .arg(x).arg(y));
     if (deviceId == 0x01) refreshDev1Label();
+
+    DeviceStatus &status = deviceStatusMap[deviceId];
+    status.lastUpdateTime = QDateTime::currentMSecsSinceEpoch();
+    status.packetCount++;
+    status.online = true;
+
+
 }
 
 void MainWindow::processBufferedData()
@@ -741,4 +758,55 @@ void MainWindow::on_btnClearMarkers_clicked()
             }
         }
     }
+}
+
+void MainWindow::updateDeviceStatus()
+{
+    qint64 now = QDateTime::currentMSecsSinceEpoch();
+    for (int id : deviceSeriesMap.keys()) {
+        DeviceStatus &status = deviceStatusMap[id];
+        qint64 deltaMs = now - status.lastUpdateTime;
+
+        // 超过 3 秒认为离线
+        status.online = (deltaMs < 3000);
+
+        // 计算数据速率（过去 3 秒内的包数）
+        static QMap<int, QVector<qint64>> timeHistory;
+        auto &history = timeHistory[id];
+        history.append(status.lastUpdateTime);
+        while (!history.isEmpty() && history.first() < now - 3000)
+            history.removeFirst();
+
+        status.dataRateHz = history.size() / 3.0;
+
+        // 更新 UI
+        updateDeviceStatusUI(id, status);
+    }
+}
+
+void MainWindow::updateDeviceStatusUI(int id, const DeviceStatus &status)
+{
+    QString statusText = status.online ? "在线" : "离线";
+    QString rateText = QString::number(status.dataRateHz, 'f', 1);
+    QString offlineText = status.online ? "—" : QString::number((QDateTime::currentMSecsSinceEpoch() - status.lastUpdateTime) / 1000.0, 'f', 1) + "s";
+
+    // 假设你有一个 QTableWidget 叫 ui->tableDeviceStatus
+    QTableWidgetItem *itemStatus = new QTableWidgetItem(statusText);
+    itemStatus->setTextAlignment(Qt::AlignCenter);
+    itemStatus->setBackground(status.online ? QBrush(Qt::green) : QBrush(Qt::gray));
+
+    QTableWidgetItem *itemRate = new QTableWidgetItem(rateText);
+    itemRate->setTextAlignment(Qt::AlignCenter);
+
+    QTableWidgetItem *itemOffline = new QTableWidgetItem(offlineText);
+    itemOffline->setTextAlignment(Qt::AlignCenter);
+
+    int row = id - 1;
+    if (row >= ui->tableDeviceStatus->rowCount())
+        ui->tableDeviceStatus->setRowCount(row + 1);
+
+    ui->tableDeviceStatus->setItem(row, 0, new QTableWidgetItem(QString("0x%1").arg(id, 2, 16, QChar('0')).toUpper()));
+    ui->tableDeviceStatus->setItem(row, 1, itemStatus);
+    ui->tableDeviceStatus->setItem(row, 2, itemRate);
+    ui->tableDeviceStatus->setItem(row, 3, itemOffline);
 }
