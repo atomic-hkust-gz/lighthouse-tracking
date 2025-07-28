@@ -9,7 +9,7 @@
     and run the host computer directly, without the need for qt compilation.
 
 ## instructions
-
+![image](https://github.com/atomic-hkust-gz/lighthouse-tracking/blob/nrf52833_new/lighthouse_host/png/p1.png)
 
 ## Serial Communication Protocols
 
