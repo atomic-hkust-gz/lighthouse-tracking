@@ -117,6 +117,9 @@ The various graphics mentioned in 7
 ### 10
 Pay attention to whether the coordinate axis is before or after the conversion
 
+### 11
+clear locus
+
 ## Serial Communication Protocols
 
 The MCU is sent to the host computer
