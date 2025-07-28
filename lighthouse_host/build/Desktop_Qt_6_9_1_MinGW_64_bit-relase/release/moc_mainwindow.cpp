@@ -61,7 +61,12 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         "onDelDevice",
         "removeDeviceSeries",
         "nextDeviceId",
-        "refreshDeviceCountLabel"
+        "refreshDeviceCountLabel",
+        "onAddManualPoint",
+        "addShapeMarker",
+        "deviceId",
+        "rawPoint",
+        "on_btnClearMarkers_clicked"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -109,6 +114,14 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         QtMocHelpers::SlotData<int() const>(22, 2, QMC::AccessPrivate, QMetaType::Int),
         // Slot 'refreshDeviceCountLabel'
         QtMocHelpers::SlotData<void()>(23, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onAddManualPoint'
+        QtMocHelpers::SlotData<void()>(24, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'addShapeMarker'
+        QtMocHelpers::SlotData<void(int, const QPointF &)>(25, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 26 }, { QMetaType::QPointF, 27 },
+        }}),
+        // Slot 'on_btnClearMarkers_clicked'
+        QtMocHelpers::SlotData<void()>(28, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -152,6 +165,9 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 17: { int _r = _t->nextDeviceId();
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = std::move(_r); }  break;
         case 18: _t->refreshDeviceCountLabel(); break;
+        case 19: _t->onAddManualPoint(); break;
+        case 20: _t->addShapeMarker((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QPointF>>(_a[2]))); break;
+        case 21: _t->on_btnClearMarkers_clicked(); break;
         default: ;
         }
     }
@@ -176,14 +192,14 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 19)
+        if (_id < 22)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 19;
+        _id -= 22;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 19)
+        if (_id < 22)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 19;
+        _id -= 22;
     }
     return _id;
 }

@@ -30,12 +30,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->chartLayout->addWidget(chartView);
 
     axisX = new QValueAxis;
-    axisX->setRange(-2'000'000, 2'000'000);
+    axisX->setRange(-1'000'0, 1'000'0);
     axisX->setTitleText("X坐标（原始）");
     chart->addAxis(axisX, Qt::AlignBottom);
 
     axisY = new QValueAxis;
-    axisY->setRange(-2'000'000, 2'000'000);
+    axisY->setRange(-1'000'0, 1'000'0);
     axisY->setTitleText("Y坐标（原始）");
     chart->addAxis(axisY, Qt::AlignLeft);
 
@@ -91,6 +91,26 @@ MainWindow::MainWindow(QWidget *parent)
 
     refreshDeviceButtons();  // 初始可用性
     refreshDeviceCountLabel();
+
+    ui->comboDeviceId->clear();
+    for (int i = 0; i <= MAX_DEVICE; ++i) {
+        ui->comboDeviceId->addItem(QString("0x%1").arg(i, 2, 16, QChar('0')).toUpper());
+    }
+    ui->comboDeviceId->setCurrentText("0x01");
+
+    ui->lineManualX->setValidator(new QIntValidator(-1000000, 1000000, this));
+    ui->lineManualY->setValidator(new QIntValidator(-1000000, 1000000, this));
+
+    connect(ui->btnAddPoint, &QPushButton::clicked, this, &MainWindow::onAddManualPoint);
+
+    ui->comboClearTarget->clear();
+    ui->comboClearTarget->addItem("全部");
+    for (int i = 0; i <= MAX_DEVICE; ++i) {
+        ui->comboClearTarget->addItem(QString("0x%1").arg(i, 2, 16, QChar('0')).toUpper());
+    }
+
+    connect(ui->btnClearMarkers, &QPushButton::clicked,
+            this, &MainWindow::on_btnClearMarkers_clicked);
 }
 
 MainWindow::~MainWindow()
@@ -573,4 +593,107 @@ QPointF MainWindow::mapToChart(const QPoint &pos) const
 {
     // 把图表视图坐标 → 图表坐标
     return chart->mapToValue(chartView->mapFromGlobal(mapToGlobal(pos)));
+}
+
+void MainWindow::onAddManualPoint()
+{
+    bool ok = false;
+    QString deviceText = ui->comboDeviceId->currentText();
+    int deviceId = deviceText.toInt(&ok, 16);
+    if (!ok) {
+        QMessageBox::warning(this, "错误", "设备号格式错误");
+        return;
+    }
+
+    int x = ui->lineManualX->text().toInt(&ok);
+    if (!ok) {
+        QMessageBox::warning(this, "错误", "X 坐标格式错误");
+        return;
+    }
+
+    int y = ui->lineManualY->text().toInt(&ok);
+    if (!ok) {
+        QMessageBox::warning(this, "错误", "Y 坐标格式错误");
+        return;
+    }
+
+    QPointF point(x, y);
+
+    // 处理设备号 0x00 为通用代码，无需配置
+    if (deviceId == 0x00) {
+        addShapeMarker(0x00, point);  // 灰色正方形
+        return;
+    }
+
+    // 其他设备号必须已配置
+    if (!deviceSeriesMap.contains(deviceId)) {
+        QMessageBox::warning(this, "错误", QString("设备 %1 未配置，请先添加设备").arg(deviceText));
+        return;
+    }
+
+    addShapeMarker(deviceId, point);  // 对应颜色的三角形
+}
+
+
+void MainWindow::addShapeMarker(int deviceId, const QPointF &rawPoint)
+{
+    QPointF mapped = mapPoint(rawPoint);
+
+    QScatterSeries *marker = new QScatterSeries();
+
+    if (deviceId == 0x00) {
+        // 灰色正方形
+        marker->setMarkerShape(QScatterSeries::MarkerShapeRectangle);
+        marker->setColor(Qt::gray);
+        marker->setMarkerSize(10);
+        marker->setName("通用点");
+    } else {
+        // 对应设备颜色的三角形
+        marker->setMarkerShape(QScatterSeries::MarkerShapeTriangle);
+        marker->setColor(nextDeviceColor(deviceId));
+        marker->setMarkerSize(15);
+        marker->setName(QString("设备%1-手动").arg(deviceId));
+    }
+
+    marker->append(mapped);
+    chart->addSeries(marker);
+    marker->attachAxis(axisX);
+    marker->attachAxis(axisY);
+
+    // 可选：记录指针以便后续清理
+    manualMarkers.append(marker);
+}
+
+
+void MainWindow::on_btnClearMarkers_clicked()
+{
+    QString target = ui->comboClearTarget->currentText();
+
+    if (target == "全部") {
+        // 一键清全部
+        for (QScatterSeries *m : manualMarkers) {
+            chart->removeSeries(m);
+            delete m;
+        }
+        manualMarkers.clear();
+    } else {
+        // 只清指定设备
+        bool ok = false;
+        int deviceId = target.toInt(&ok, 16);
+        if (!ok) return;
+
+        // 倒序删除避免迭代器失效
+        for (int i = manualMarkers.size() - 1; i >= 0; --i) {
+            QScatterSeries *m = manualMarkers[i];
+            if (m->name() == "通用点" && deviceId == 0x00) {
+                chart->removeSeries(m);
+                delete m;
+                manualMarkers.removeAt(i);
+            } else if (m->name() == QString("设备%1-手动").arg(deviceId)) {
+                chart->removeSeries(m);
+                delete m;
+                manualMarkers.removeAt(i);
+            }
+        }
+    }
 }

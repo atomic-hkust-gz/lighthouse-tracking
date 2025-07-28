@@ -68,12 +68,18 @@ public:
     QPushButton *btnAddDevice;
     QPushButton *btnDelDevice;
     QLabel *labelDeviceCount;
+    QComboBox *comboDeviceId;
+    QLineEdit *lineManualX;
+    QLineEdit *lineManualY;
+    QPushButton *btnAddPoint;
+    QComboBox *comboClearTarget;
+    QPushButton *btnClearMarkers;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(1097, 819);
+        MainWindow->resize(1225, 750);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName("centralWidget");
         tabWidget = new QTabWidget(centralWidget);
@@ -205,7 +211,7 @@ public:
         tabWidget->addTab(tabChart, QString());
         btnClearPlot = new QPushButton(centralWidget);
         btnClearPlot->setObjectName("btnClearPlot");
-        btnClearPlot->setGeometry(QRect(21, 711, 93, 28));
+        btnClearPlot->setGeometry(QRect(30, 680, 93, 28));
         vScrollBar = new QScrollBar(centralWidget);
         vScrollBar->setObjectName("vScrollBar");
         vScrollBar->setGeometry(QRect(1070, 10, 17, 631));
@@ -216,34 +222,52 @@ public:
         hScrollBar->setOrientation(Qt::Orientation::Horizontal);
         btnCalOrigin = new QPushButton(centralWidget);
         btnCalOrigin->setObjectName("btnCalOrigin");
-        btnCalOrigin->setGeometry(QRect(120, 710, 93, 28));
+        btnCalOrigin->setGeometry(QRect(1110, 150, 101, 28));
         btnCal10_10 = new QPushButton(centralWidget);
         btnCal10_10->setObjectName("btnCal10_10");
-        btnCal10_10->setGeometry(QRect(220, 710, 111, 28));
+        btnCal10_10->setGeometry(QRect(1110, 180, 101, 28));
         btnCalN10_N10 = new QPushButton(centralWidget);
         btnCalN10_N10->setObjectName("btnCalN10_N10");
-        btnCalN10_N10->setGeometry(QRect(340, 710, 101, 28));
+        btnCalN10_N10->setGeometry(QRect(1110, 210, 101, 28));
         btnToggleCoord = new QPushButton(centralWidget);
         btnToggleCoord->setObjectName("btnToggleCoord");
-        btnToggleCoord->setGeometry(QRect(450, 710, 93, 28));
+        btnToggleCoord->setGeometry(QRect(1110, 240, 101, 28));
         labelDev1Coord = new QLabel(centralWidget);
         labelDev1Coord->setObjectName("labelDev1Coord");
-        labelDev1Coord->setGeometry(QRect(550, 720, 201, 19));
+        labelDev1Coord->setGeometry(QRect(30, 710, 201, 19));
         labelDev1Coord->setFrameShape(QFrame::Shape::Box);
         btnAddDevice = new QPushButton(centralWidget);
         btnAddDevice->setObjectName("btnAddDevice");
-        btnAddDevice->setGeometry(QRect(20, 680, 93, 28));
+        btnAddDevice->setGeometry(QRect(1110, 50, 93, 28));
         btnDelDevice = new QPushButton(centralWidget);
         btnDelDevice->setObjectName("btnDelDevice");
-        btnDelDevice->setGeometry(QRect(120, 680, 93, 28));
+        btnDelDevice->setGeometry(QRect(1110, 80, 93, 28));
         labelDeviceCount = new QLabel(centralWidget);
         labelDeviceCount->setObjectName("labelDeviceCount");
-        labelDeviceCount->setGeometry(QRect(230, 680, 111, 19));
+        labelDeviceCount->setGeometry(QRect(1100, 20, 111, 19));
+        comboDeviceId = new QComboBox(centralWidget);
+        comboDeviceId->setObjectName("comboDeviceId");
+        comboDeviceId->setGeometry(QRect(1120, 310, 91, 25));
+        lineManualX = new QLineEdit(centralWidget);
+        lineManualX->setObjectName("lineManualX");
+        lineManualX->setGeometry(QRect(1120, 340, 91, 25));
+        lineManualY = new QLineEdit(centralWidget);
+        lineManualY->setObjectName("lineManualY");
+        lineManualY->setGeometry(QRect(1120, 370, 91, 25));
+        btnAddPoint = new QPushButton(centralWidget);
+        btnAddPoint->setObjectName("btnAddPoint");
+        btnAddPoint->setGeometry(QRect(1110, 400, 101, 28));
+        comboClearTarget = new QComboBox(centralWidget);
+        comboClearTarget->setObjectName("comboClearTarget");
+        comboClearTarget->setGeometry(QRect(1130, 430, 83, 25));
+        btnClearMarkers = new QPushButton(centralWidget);
+        btnClearMarkers->setObjectName("btnClearMarkers");
+        btnClearMarkers->setGeometry(QRect(1120, 460, 91, 28));
         MainWindow->setCentralWidget(centralWidget);
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -275,6 +299,8 @@ public:
         btnAddDevice->setText(QCoreApplication::translate("MainWindow", "\346\267\273\345\212\240\350\256\276\345\244\207", nullptr));
         btnDelDevice->setText(QCoreApplication::translate("MainWindow", "\345\207\217\345\260\221\350\256\276\345\244\207", nullptr));
         labelDeviceCount->setText(QCoreApplication::translate("MainWindow", "\350\256\276\345\244\207\346\225\260\357\274\2322 / 50", nullptr));
+        btnAddPoint->setText(QCoreApplication::translate("MainWindow", "btnAddPoint", nullptr));
+        btnClearMarkers->setText(QCoreApplication::translate("MainWindow", "btnClearMarkers", nullptr));
     } // retranslateUi
 
 };

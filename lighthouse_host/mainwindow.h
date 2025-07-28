@@ -48,6 +48,9 @@ private slots:
     void removeDeviceSeries(int id);
     int nextDeviceId() const;
     void refreshDeviceCountLabel();
+    void onAddManualPoint();
+    void addShapeMarker(int deviceId, const QPointF &rawPoint);
+    void on_btnClearMarkers_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -93,6 +96,7 @@ private:
      QColor nextDeviceColor(int id) const;
 
      QPointF mapToChart(const QPoint &pos) const;   // < 把窗口坐标 → 图表逻辑坐标
+     QList<QScatterSeries*> manualMarkers;
 
 
 };
