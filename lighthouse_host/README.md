@@ -103,7 +103,7 @@ Please note that calibration must be done using Device 1!!
 When conducting the test, the author chose cm as the unit and placed three points within 10cm.
 After the test, the error was approximately 1 to 3mm.
 ### 7
-Manually mark, select the device, fill in the coordinates, start marking, and then the corresponding pattern will appear in the coordinate system (0x00 is a special device and will draw a gray square, while other devices will draw triangles of the corresponding color), and at the same time, the serial port will send data to the single-chip microcomputer. The format for sending is described below.
+Manually mark, select the device, fill in the coordinates, start marking, and then the corresponding pattern will appear in the coordinate system (0x00 is a special device and will draw a gray square, while other devices will draw triangles of the corresponding color), and at the same time, the serial port will send data to the single-chip microcomputer. The format for sending is described below.[Serial Communication Protocols]
 
 At the same time, you can also choose to clear the mark of a certain device or clear all marks.
 
